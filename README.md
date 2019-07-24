@@ -4,14 +4,9 @@ Mediabox is an all Docker Container based media aggregator stack.
 
 Components include:
 
-*   [Couchpotato movie library manager](https://couchpota.to/)
 *   [Deluge torrent client (using VPN)](http://deluge-torrent.org/)
-*   [Duplicati Backup Software](https://www.duplicati.com/)
-*   [Headphones](https://github.com/linuxserver/docker-headphones)
 *   [Jackett Tracker API and Proxy](https://github.com/Jackett/Jackett)
-*   [Jellyfin Free Software Media System](https://github.com/jellyfin/jellyfin)
 *   [Lidarr Music collection manager](https://lidarr.audio/)
-*   [Minio cloud storage](https://www.minio.io/)
 *   [Muximux Web based HTPC manager](https://github.com/mescon/Muximux)
 *   [NetData System Monitoring](https://github.com/netdata/netdata)
 *   [NZBGet Usenet Downloader](https://nzbget.net/)  
@@ -21,7 +16,6 @@ Components include:
 *   [Portainer Docker Container manager](https://portainer.io/)
 *   [Radarr movie library manager](https://radarr.video/)
 *   [SABnzbd Usenet download tool](https://github.com/sabnzbd/sabnzbd)
-*   [SickChill TV library manager](https://github.com/SickChill/SickChill)
 *   [Sonarr TV library manager](https://sonarr.tv/)
 *   [Tautulli Plex Media Server monitor](https://github.com/tautulli/tautulli)
 

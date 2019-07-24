@@ -122,49 +122,17 @@ read -r -p "Where do you store your MOVIE media? (Please use full path - /path/t
 read -r -p "Where do you store your MUSIC media? (Please use full path - /path/to/music ): " musicdirectory
 fi
 
-# Create the directory structure
-if [ -z "$dldirectory" ]; then
-    mkdir -p content/completed
-    mkdir -p content/incomplete
-    dldirectory="$PWD/content"
-else
-  mkdir -p "$dldirectory"/completed
-  mkdir -p "$dldirectory"/incomplete
-fi
-if [ -z "$tvdirectory" ]; then
-    mkdir -p content/tv
-    tvdirectory="$PWD/content/tv"
-fi
-if [ -z "$moviedirectory" ]; then
-    mkdir -p content/movies
-    moviedirectory="$PWD/content/movies"
-fi
-if [ -z "$musicdirectory" ]; then
-    mkdir -p content/music
-    musicdirectory="$PWD/content/music"
-fi
-
-# Adjust for Container name changes
-[ -d "sickrage/" ] && mv sickrage/ sickchill  # Switch from Sickrage to SickChill
-
-mkdir -p couchpotato
 mkdir -p delugevpn
 mkdir -p delugevpn/config/openvpn
-mkdir -p duplicati
-mkdir -p duplicati/backups
-mkdir -p headphones
 mkdir -p historical/env_files
 mkdir -p jackett
-mkdir -p jellyfin
 mkdir -p lidarr
-mkdir -p minio
 mkdir -p muximux
-mkdir -p nzbget
+mkdir -p sabnzbdvpn/config/openvpn
 mkdir -p ombi
-mkdir -p "plex/Library/Application Support/Plex Media Server/Logs"
+#mkdir -p "plex/Library/Application Support/Plex Media Server/Logs"
 mkdir -p portainer
 mkdir -p radarr
-mkdir -p sickchill
 mkdir -p sonarr
 mkdir -p tautulli
 
@@ -185,6 +153,7 @@ do
     # now we can use the selected file
     echo "$filename selected"
     cp "$filename" delugevpn/config/openvpn/ > /dev/null 2>&1
+    cp "$filename" sabnzbdvpn/config/openvpn/ > /dev/null 2>&1
     vpnremote=$(grep "remote" "$filename" | cut -d ' ' -f2  | head -1)
     # it'll ask for another unless we leave the loop
     break
@@ -192,6 +161,8 @@ done
 # TODO - Add a default server selection if none selected ..
 cp ovpn/*.crt delugevpn/config/openvpn/ > /dev/null 2>&1
 cp ovpn/*.pem delugevpn/config/openvpn/ > /dev/null 2>&1
+cp ovpn/*.crt sabnzbdvpn/config/openvpn/ > /dev/null 2>&1
+cp ovpn/*.pem sabnzbdvpn/config/openvpn/ > /dev/null 2>&1
 
 # Create the .env file
 echo "Creating the .env file with the values we have gathered"
@@ -231,15 +202,6 @@ echo "VPN_REMOTE=$vpnremote"
 echo ".env file creation complete"
 printf "\\n\\n"
 
-# Adjust for the Switch to linuxserver/sickchill
-docker rm -f sickchill > /dev/null 2>&1
-# Adjust for the Tautulli replacement of PlexPy
-docker rm -f plexpy > /dev/null 2>&1
-# Adjust for the Ouroboros replacement of Watchtower
-docker rm -f watchtower > /dev/null 2>&1
-# Adjust for old uhttpd web container - Noted in issue #47
-docker rm -f uhttpd > /dev/null 2>&1
-[ -d "www/" ] && mv www/ historical/www/
 # Move back-up .env files
 mv 20*.env historical/env_files/ > /dev/null 2>&1
 mv historical/20*.env historical/env_files/ > /dev/null 2>&1
@@ -256,7 +218,7 @@ printf "\\n\\n"
 # The same credentials can be used for NZBGet's webui
 if [ -z "$daemonun" ]; then
 echo "You need to set a username and password for programs to access"
-echo "The Deluge daemon and NZBGet's API and web interface."
+echo "the Deluge daemon."
 read -r -p "What would you like to use as the access username?: " daemonun
 read -r -p "What would you like to use as the access password?: " daemonpass
 printf "\\n\\n"
@@ -274,22 +236,11 @@ perl -i -pe 's/"allow_remote": false,/"allow_remote": true,/g'  delugevpn/config
 perl -i -pe 's/"move_completed": false,/"move_completed": true,/g'  delugevpn/config/core.conf
 docker start delugevpn > /dev/null 2>&1
 
-# Configure NZBGet
-[ -d "content/nbzget" ] && mv content/nbzget/* content/ && rmdir content/nbzget
-while [ ! -f nzbget/nzbget.conf ]; do sleep 1; done
-docker stop nzbget > /dev/null 2>&1
-perl -i -pe "s/ControlUsername=nzbget/ControlUsername=$daemonun/g"  nzbget/nzbget.conf
-perl -i -pe "s/ControlPassword=tegbzn6789/ControlPassword=$daemonpass/g"  nzbget/nzbget.conf
-perl -i -pe "s/{MainDir}\/intermediate/{MainDir}\/incomplete/g" nzbget/nzbget.conf
-docker start nzbget > /dev/null 2>&1
-
-# Push the Deluge Daemon and NZBGet Access info the to Auth file - and to the .env file
+# Push the Deluge Daemon Access info the to Auth file - and to the .env file
 echo "$daemonun":"$daemonpass":10 >> ./delugevpn/config/auth
 {
 echo "CPDAEMONUN=$daemonun"
 echo "CPDAEMONPASS=$daemonpass"
-echo "NZBGETUN=$daemonun"
-echo "NZBGETPASS=$daemonpass"
 } >> .env
 # Configure Muximux settings and files
 while [ ! -f muximux/www/muximux/settings.ini.php-example ]; do sleep 1; done
@@ -302,19 +253,6 @@ perl -i -pe "s/locip/$locip/g" muximux/www/muximux/mediaboxconfig.php
 perl -i -pe "s/daemonun/$daemonun/g" muximux/www/muximux/mediaboxconfig.php
 perl -i -pe "s/daemonpass/$daemonpass/g" muximux/www/muximux/mediaboxconfig.php
 docker start muximux > /dev/null 2>&1
-
-# If PlexPy existed - copy plexpy.db to Tautulli
-if [ -e plexpy/plexpy.db ]; then
-    docker stop tautulli > /dev/null 2>&1
-    mv tautulli/tautulli.db tautulli/tautulli.db.orig
-    cp plexpy/plexpy.db tautulli/tautulli.db
-    mv plexpy/plexpy.db plexpy/plexpy.db.moved
-    docker start tautulli > /dev/null 2>&1
-    mv plexpy/ historical/plexpy/
-fi
-if [ -e plexpy/plexpy.db.moved ]; then # Adjust for missed moves
-    mv plexpy/ historical/plexpy/
-fi
 
 printf "Setup Complete - Open a browser and go to: \\n\\n"
 printf "http://%s \\nOR http://%s If you have appropriate DNS configured.\\n\\n" "$locip" "$thishost"

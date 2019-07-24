@@ -14,25 +14,6 @@ version: '3.5'
 services:
 
     # ----------------------------------------
-    # COUCHPOTATO
-    # ----------------------------------------
-    couchpotato:
-        image: linuxserver/couchpotato
-        container_name: couchpotato
-        restart: unless-stopped
-        network_mode: "bridge"
-        ports:
-            - '${IP_ADDRESS}:5050:5050'
-        environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
-        volumes:
-            - './couchpotato:/config'
-            - '${DLDIR}/completed:/downloads'
-            - '${MOVIEDIR}:/movies'
-            - '/etc/localtime:/etc/localtime:ro'
-
-    # ----------------------------------------
     # DELUGEVPN
     # ----------------------------------------
     arch-delugevpn:
@@ -70,44 +51,6 @@ services:
             - '/etc/localtime:/etc/localtime:ro'
 
     # ----------------------------------------
-    # DUPLICATI
-    # ----------------------------------------
-    duplicati:
-        image: linuxserver/duplicati
-        container_name: duplicati
-        restart: unless-stopped
-        network_mode: "bridge"
-        ports:
-            - '${IP_ADDRESS}:8200:8200'
-        environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
-        volumes:
-            - './duplicati:/config'
-            - './duplicati/backups:/backups'
-            - '${PWD}:/source'
-            - '/etc/localtime:/etc/localtime:ro'
-
-    # ----------------------------------------
-    # HEADPHONES
-    # ----------------------------------------
-    headphones:
-        image: linuxserver/headphones
-        container_name: headphones
-        restart: unless-stopped
-        network_mode: "bridge"
-        ports:
-            - '${IP_ADDRESS}:8282:8181'
-        environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
-            - TZ=${TZ}
-        volumes:
-            - './headphones:/config'
-            - '${DLDIR}/completed:/downloads'
-            - '${MUSICDIR}:/music'
-
-    # ----------------------------------------
     # JACKETT
     # ----------------------------------------
     jackett:
@@ -123,23 +66,6 @@ services:
         volumes:
             - './jackett:/config'
             - '${DLDIR}/completed:/downloads'
-            - '/etc/localtime:/etc/localtime:ro'
-
-    # ----------------------------------------
-    # JELLYFIN
-    # ----------------------------------------
-    jellyfin:
-        image: jellyfin/jellyfin
-        container_name: jellyfin
-        restart: unless-stopped
-        network_mode: "host"
-        user: "${PUID}:${PGID}"
-        ports:
-            - '${IP_ADDRESS}:8096:8096'
-        volumes:
-            - './jellyfin:/config'
-            - '${TVDIR}:/media/tv'
-            - '${MOVIEDIR}:/media/movies'
             - '/etc/localtime:/etc/localtime:ro'
 
     # ----------------------------------------
@@ -160,24 +86,6 @@ services:
             - '${DLDIR}/completed:/data/completed'
             - '${MUSICDIR}:/music'
             - '/etc/localtime:/etc/localtime:ro'
-
-    # ----------------------------------------
-    # MINIO
-    # ----------------------------------------
-    minio:
-        image: minio/minio
-        container_name: minio
-        restart: unless-stopped
-        network_mode: "bridge"
-        ports:
-            - '${IP_ADDRESS}:9009:9000'
-        environment:
-            - MINIO_ACCESS_KEY=minio
-            - MINIO_SECRET_KEY=minio123
-        volumes:
-            - './minio:/root/.minio'
-            - '${PWD}:/export'
-        command: server /export
 
     # ----------------------------------------
     # MUXIMUX
@@ -219,22 +127,39 @@ services:
             - '/var/run/docker.sock:/var/run/docker.sock:rw'
 
     # ----------------------------------------
-    # NZBGet
+    # SABnzbd
     # ----------------------------------------
-    nzbget:
-        image: linuxserver/nzbget
-        container_name: nzbget
+    arch-sabnzbdvpn:
+        image: binhex/arch-sabnzbdvpn
+        container_name: sabnzbdvpn
         restart: unless-stopped
-        environment:
-          - PUID=${PUID}
-          - PGID=${PGID}
-          - TZ=${TZ}
         network_mode: 'bridge'
         ports:
-          - '${IP_ADDRESS}:6789:6789'
+          - '${IP_ADDRESS}:8080:8080'
+          - '${IP_ADDRESS}:8090:8090'
+        cap_add:
+          - NET_ADMIN
+        environment:
+            - VPN_ENABLED=yes
+            - VPN_USER=${PIAUNAME}
+            - VPN_PASS=${PIAPASS}
+            - VPN_REMOTE=${VPN_REMOTE}
+            - VPN_PORT=1198
+            - VPN_PROTOCOL=udp
+            - VPN_DEVICE_TYPE=tun
+            - VPN_PROV=pia
+            - STRONG_CERTS=no
+            - ENABLE_PRIVOXY=no
+            - STRICT_PORT_FORWARD=yes
+            - LAN_NETWORK=${CIDR_ADDRESS}
+            - NAME_SERVERS=209.222.18.222,84.200.69.80,37.235.1.174,1.1.1.1,209.222.18.218,37.235.1.177,84.200.70.40,1.0.0.1
+            - DEBUG=false
+            - PUID=${PUID}
+            - PGID=${PGID}
         volumes:
-          - './nzbget:/config'
-          - '${DLDIR}:/downloads'
+            - '${DLDIR}:/data'
+            - './sabnzbdvpn/config:/config'
+            - '/etc/localtime:/etc/localtime:ro'
 
     # ----------------------------------------
     # OMBI
@@ -340,25 +265,6 @@ services:
             - './radarr:/config'
             - '${DLDIR}/completed:/data/completed'
             - '${MOVIEDIR}:/movies'
-            - '/etc/localtime:/etc/localtime:ro'
-
-    # ----------------------------------------
-    # SICKCHILL
-    # ----------------------------------------
-    sickchill:
-        image: linuxserver/sickchill
-        container_name: sickchill
-        restart: unless-stopped
-        network_mode: "bridge"
-        ports:
-            - '${IP_ADDRESS}:8081:8081'
-        environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
-        volumes:
-            - './sickchill:/config'
-            - '${DLDIR}/completed:/downloads'
-            - '${TVDIR}:/tv'
             - '/etc/localtime:/etc/localtime:ro'
 
     # ----------------------------------------
