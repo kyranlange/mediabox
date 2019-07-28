@@ -287,27 +287,27 @@ services:
             - '${TVDIR}:/tv'
             - '/etc/localtime:/etc/localtime:ro'
 
-  # ----------------------------------------
-  # LazyLibrarian
-  # Book Management
-  # ----------------------------------------
+    # ----------------------------------------
+    # LazyLibrarian
+    # Book Management
+    # ----------------------------------------
     lazylibrarian:
-      image: linuxserver/lazylibrarian
-      container_name: lazylibrarian
-      restart: unless-stopped
-      network_mode: "bridge"
-          ports:
-              - '${IP_ADDRESS}:5299:5299'
-      environment:
-        - PUID=${PUID}
-        - PGID=${PGID}
-        - DOCKER_MODS=linuxserver/calibre-web:calibre #*optional* & **x86-64 only**
-        - TZ=${TZ}
-      volumes:
-        - ./lazylibrarian:/config
-        - ${DLDIR}/complete/books:/downloads
-        - ${BOOKDIR}:/books
-        - '/etc/localtime:/etc/localtime:ro'
+        image: linuxserver/lazylibrarian
+        container_name: lazylibrarian
+        restart: unless-stopped
+        network_mode: "bridge"
+        ports:
+            - '${IP_ADDRESS}:5299:5299'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - DOCKER_MODS=linuxserver/calibre-web:calibre #*optional* & **x86-64 only**
+            - TZ=${TZ}
+        volumes:
+            - './lazylibrarian:/config'
+            - '${DLDIR}/complete/books:/downloads'
+            - '${BOOKDIR}:/books'
+            - '/etc/localtime:/etc/localtime:ro'
 
     # ----------------------------------------
     # TAUTULLI
