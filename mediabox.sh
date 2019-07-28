@@ -45,6 +45,7 @@ if [ -e 1.env ]; then
     tvdirectory=$(grep TVDIR 1.env | cut -d = -f2)
     moviedirectory=$(grep MOVIEDIR 1.env | cut -d = -f2)
     musicdirectory=$(grep MUSICDIR 1.env | cut -d = -f2)
+    bookdirectory=$(grep BOOKDIR 1.env | cut -d = -f2)
     domain=$(grep DOMAIN 1.env | cut -d = -f2)
     email=$(grep EMAIL 1.env | cut -d = -f2)
     stackname=$(grep STACK_NAME 1.env | cut -d = -f2)
@@ -55,6 +56,7 @@ if [ -e 1.env ]; then
     printf "Your TV Directory is: %s \\n" "$tvdirectory"
     printf "Your MOVIE Directory is: %s \\n" "$moviedirectory"
     printf "Your MUSIC Directory is: %s \\n" "$musicdirectory"
+    printf "Your BOOK Directory is: %s \\n" "$bookdirectory"
     read  -r -p "Are these directiores still correct? (y/n) " diranswer
     # Now we need ".env" to exist again so we can stop just the Medaibox containers
     mv 1.env .env
@@ -136,12 +138,14 @@ read -r -p "Where do you store your DOWNLOADS? (Please use full path - /path/to/
 read -r -p "Where do you store your TV media? (Please use full path - /path/to/tv ): " tvdirectory
 read -r -p "Where do you store your MOVIE media? (Please use full path - /path/to/movies ): " moviedirectory
 read -r -p "Where do you store your MUSIC media? (Please use full path - /path/to/music ): " musicdirectory
+read -r -p "Where do you store your BOOK media? (Please use full path - /path/to/books ): " bookdirectory
 fi
 if [ "$diranswer" == "n" ]; then
 read -r -p "Where do you store your DOWNLOADS? (Please use full path - /path/to/downloads ): " dldirectory
 read -r -p "Where do you store your TV media? (Please use full path - /path/to/tv ): " tvdirectory
 read -r -p "Where do you store your MOVIE media? (Please use full path - /path/to/movies ): " moviedirectory
 read -r -p "Where do you store your MUSIC media? (Please use full path - /path/to/music ): " musicdirectory
+read -r -p "Where do you store your BOOK media? (Please use full path - /path/to/books ): " bookdirectory
 fi
 
 mkdir -p delugevpn
@@ -156,6 +160,7 @@ mkdir -p "plex/Library/Application Support/Plex Media Server/Logs"
 mkdir -p portainer
 mkdir -p radarr
 mkdir -p sonarr
+mkdir -p lazylibrarian
 mkdir -p tautulli
 mkdir -p traefik
 
@@ -213,6 +218,7 @@ echo "DLDIR=$dldirectory"
 echo "TVDIR=$tvdirectory"
 echo "MOVIEDIR=$moviedirectory"
 echo "MUSICDIR=$musicdirectory"
+echo "BOOKDIR=$bookdirectory"
 echo "PIAUNAME=$piauname"
 echo "PIAPASS=$piapass"
 echo "CIDR_ADDRESS=$lannet"

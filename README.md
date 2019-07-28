@@ -19,10 +19,11 @@ Components include:
 *   [Sonarr TV library manager](https://sonarr.tv/)
 *   [Tautulli Plex Media Server monitor](https://github.com/tautulli/tautulli)
 *   [Traefik](https://traefik.io/) - Reverse Proxy and SSL Support
+*   [LazyLibrarian Book collection manager](https://lazylibrarian.gitlab.io/)
 
 ## Prerequisites
 
-*   [Ubuntu 16.04 LTS](https://www.ubuntu.com/) Or [Ubuntu 18.04 LTS](https://www.ubuntu.com/)
+*   [Ubuntu 18.04 LTS](https://www.ubuntu.com/)
 *   [VPN account from Private internet Access](https://www.privateinternetaccess.com/) (Please see [binhex's Github Repo](https://github.com/binhex/arch-delugevpn) if you want to use a different VPN)
 *   [Git](https://git-scm.com/)
 *   [Docker](https://www.docker.com/)

@@ -417,6 +417,39 @@ services:
             - 'traefik.frontend.headers.STSIncludeSubdomains=true'
             - 'traefik.frontend.headers.STSPreload=true'
 
+  # ----------------------------------------
+  # LazyLibrarian
+  # Book Management
+  # ----------------------------------------
+    lazylibrarian:
+      image: linuxserver/lazylibrarian
+      container_name: lazylibrarian
+      restart: unless-stopped
+      networks:
+        - web
+      expose:
+        - 5299
+      environment:
+        - PUID=${PUID}
+        - PGID=${PGID}
+        - DOCKER_MODS=linuxserver/calibre-web:calibre #*optional* & **x86-64 only**
+        - TZ=${TZ}
+      volumes:
+        - ./lazylibrarian:/config
+        - ${DLDIR}/complete/books:/downloads
+        - ${BOOKDIR}:/books
+        - '/etc/localtime:/etc/localtime:ro'
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.docker.network=${STACK_NAME}_web'
+        - 'traefik.port=5299'
+        - 'traefik.frontend.rule=Host:lazylibrarian.${DOMAIN}'
+        - 'traefik.frontend.entryPoints=https'
+        - 'traefik.frontend.headers.forceSTSHeader=true'
+        - 'traefik.frontend.headers.STSSeconds=315360000'
+        - 'traefik.frontend.headers.STSIncludeSubdomains=true'
+        - 'traefik.frontend.headers.STSPreload=true'
+
     # ----------------------------------------
     # TAUTULLI
     # Monitoring Service for PLEX Usage
