@@ -45,6 +45,10 @@ if [ -e 1.env ]; then
     tvdirectory=$(grep TVDIR 1.env | cut -d = -f2)
     moviedirectory=$(grep MOVIEDIR 1.env | cut -d = -f2)
     musicdirectory=$(grep MUSICDIR 1.env | cut -d = -f2)
+    domain=$(grep DOMAIN 1.env | cut -d = -f2)
+    email=$(grep EMAIL 1.env | cut -d = -f2)
+    stackname=$(grep STACK_NAME 1.env | cut -d = -f2)
+    traefikauth=$(grep TRAEFIK_AUTH 1.env | cut -d = -f2)
     # Echo back the media directioies to see if changes are needed
     printf "These are the Media Directory paths currently configured.\\n"
     printf "Your DOWNLOAD Directory is: %s \\n" "$dldirectory"
@@ -104,6 +108,24 @@ elif [ "$portainerstyle" == "auth" ]; then
    portainerstyle=
 fi
 
+# Get Domain Info
+if [ -z "$domain" ]; then
+read -r -p "What is your domain?: " domain
+read -r -p "What is your email?: " email
+printf "\\n\\n"
+fi
+
+# Get Stack Name
+if [ -z "$stackname" ]; then
+read -r -p "What is the stack called?: " stackname
+printf "\\n\\n"
+fi
+
+if [ -z "$traefikauth" ]; then
+read -r -p "Basic Auth for the Traefik Admin (http://www.htaccesstools.com/htpasswd-generator/)?: " traefikauth
+printf "\\n\\n"
+fi
+
 # Ask user if they already have TV, Movie, and Music directories
 if [ -z "$diranswer" ]; then
 printf "\\n\\n"
@@ -130,11 +152,12 @@ mkdir -p lidarr
 mkdir -p muximux
 mkdir -p sabnzbdvpn/config/openvpn
 mkdir -p ombi
-#mkdir -p "plex/Library/Application Support/Plex Media Server/Logs"
+mkdir -p "plex/Library/Application Support/Plex Media Server/Logs"
 mkdir -p portainer
 mkdir -p radarr
 mkdir -p sonarr
 mkdir -p tautulli
+mkdir -p traefik
 
 # Create menu - Select and Move the PIA VPN files
 echo "The following PIA Servers are avialable that support port-forwarding (for DelugeVPN); Please select one:"
@@ -198,6 +221,10 @@ echo "PMSTAG=$pmstag"
 echo "PMSTOKEN=$pmstoken"
 echo "PORTAINERSTYLE=$portainerstyle"
 echo "VPN_REMOTE=$vpnremote"
+echo "DOMAIN=$domain"
+echo "EMAIL=$email"
+echo "STACK_NAME=$stackname"
+echo "TRAEFIK_AUTH=$traefikauth"
 } >> .env
 echo ".env file creation complete"
 printf "\\n\\n"
