@@ -21,3 +21,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Intelij Files
+.idea/
+*.iml
