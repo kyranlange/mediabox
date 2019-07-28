@@ -295,10 +295,9 @@ services:
       image: linuxserver/lazylibrarian
       container_name: lazylibrarian
       restart: unless-stopped
-      networks:
-        - web
-      expose:
-        - 5299
+      network_mode: "bridge"
+          ports:
+              - '${IP_ADDRESS}:5299:5299'
       environment:
         - PUID=${PUID}
         - PGID=${PGID}
@@ -309,16 +308,6 @@ services:
         - ${DLDIR}/complete/books:/downloads
         - ${BOOKDIR}:/books
         - '/etc/localtime:/etc/localtime:ro'
-      labels:
-        - 'traefik.enable=true'
-        - 'traefik.docker.network=${STACK_NAME}_web'
-        - 'traefik.port=5299'
-        - 'traefik.frontend.rule=Host:lazylibrarian.${DOMAIN}'
-        - 'traefik.frontend.entryPoints=https'
-        - 'traefik.frontend.headers.forceSTSHeader=true'
-        - 'traefik.frontend.headers.STSSeconds=315360000'
-        - 'traefik.frontend.headers.STSIncludeSubdomains=true'
-        - 'traefik.frontend.headers.STSPreload=true'
 
     # ----------------------------------------
     # TAUTULLI
