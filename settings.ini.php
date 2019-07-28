@@ -127,7 +127,7 @@ enabled = "true"
 name = "LazyLibrarian"
 url = "http://locip:5299"
 scale = 1
-icon = "muximux-lazylibrarian"
+icon = "muximux-books"
 color = "#f85c22"
 enabled = "true"
 
