@@ -58,12 +58,13 @@ Install the prerequisite packages:
 3.  Install Docker-Compose:  
 
     ```bash
-    sudo curl -L https://github.com/docker/compose/releases/download/1.24.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo curl -L https://raw.githubusercontent.com/docker/compose/1.24.1/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
     ```
 
 4.  Set the permissions: `$ sudo chmod +x /usr/local/bin/docker-compose`  
 
-5.  Verify the Docker Compose installation: `$ docker-compose -v`  
+5.  Verify the Docker Compose installation: `$ docker-compose --version`  
 
 Add the current user to the docker group:
 
