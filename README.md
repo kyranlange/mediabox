@@ -18,7 +18,6 @@ Components include:
 *   [SABnzbd Usenet download tool (using VPN)](https://github.com/sabnzbd/sabnzbd)
 *   [Sonarr TV library manager](https://sonarr.tv/)
 *   [Tautulli Plex Media Server monitor](https://github.com/tautulli/tautulli)
-*   [Traefik](https://traefik.io/) - Reverse Proxy and SSL Support
 *   [LazyLibrarian Book collection manager](https://lazylibrarian.gitlab.io/)
 
 ## Prerequisites
@@ -111,16 +110,9 @@ As the script runs you will be prompted for:
     *   **auth** (will require a password, require a persistent volume map, and will need you to select the endpoint to manage)
     *   **noauth** (will not require a password for access and will automatically connect to the local Docker sock endpoint)
 
-4.  Domain and email for HTTPS setup.
-    *   **domain** Public domain to use for accessing services via a public domain - `server.domain.com` 
-    *   **email** Email address to be used for Let's Encrypt SSL certificate validation - `someone@somewhere.com` 
-
-5.  Network stack name for configuring Traefik
-    *   **stack name** This is used to specify the appropriate network Traefik should use. If a container is linked to several networks, be sure to set the proper network name (you can check with docker inspect <container_id>) otherwise it will randomly pick one (depending on how docker is returning them). For instance when deploying docker stack from compose files, the compose defined networks will be prefixed with the stack name. Or if your service references external network use it's name instead. https://docs.traefik.io/v1.5/configuration/backends/docker/
-
-6.  `TRAEFIK_AUTH=` - Basic Auth for the Traefik Admin [htpasswd Generator](http://www.htaccesstools.com/htpasswd-generator/) 
-
- 
+4.  Credentials for the NBZGet interface and the Deluge daemon which needed for the CouchPotato container.
+    *   **username**
+    *   **password**
 
 Upon completion, the script will launch your mediabox containers.
 
