@@ -35,14 +35,6 @@ icon = "muximux-bullhorn"
 color = "#93c47d"
 enabled = "true"
 
-[Couchpotato]
-name = "CouchPotato"
-url = "http://locip:5050"
-scale = 1
-icon = "muximux-couchpotato"
-color = "#f85c22"
-enabled = "true"
-
 [Deluge]
 name = "Deluge"
 url = "http://locip:8112"
@@ -59,27 +51,12 @@ icon = "muximux-copy2"
 color = "#6fa8dc"
 enabled = "true"
 
-[Headphones]
-name = "Headphones"
-url = "http://locip:8282"
-scale = 1
-icon = "muximux-headphones3"
-color = "#000000"
-enabled = "true"
-
 [Jackett]
 name = "Jackett"
 url = "http://locip:9117"
 scale = 1
 icon = "muximux-jackett"
 color = "#000000"
-enabled = "true"
-
-[Jellyfin]
-name = "JellyFin"
-url = "http://locip:8096"
-icon = "muximux-play2"
-color = "#674ea7"
 enabled = "true"
 
 [Lidarr]
@@ -90,14 +67,6 @@ icon = "muximux-music"
 color = "#93c47d"
 enabled = "true"
 
-[Minio]
-name = "Minio"
-url = "http://locip:9009"
-scale = 1
-icon = "muximux-stack"
-color = "#999999"
-enabled = "true"
-
 [NetData]
 name = "NetData"
 url = "http://locip:19999"
@@ -106,9 +75,9 @@ icon = "muximux-meter"
 color = "#cc0000"
 enabled = "true"
 
-[NZBGet]
-name = "NZBGet"
-url = "http://locip:6789"
+[Sabnzbd]
+name = "Sabnzbd"
+url = "http://locip:8080"
 scale = 1
 icon = "muximux-download"
 color = "#3f8927"
@@ -146,20 +115,20 @@ icon = "muximux-sonarr"
 color = "#ffe599"
 enabled = "true"
 
-[SickChill]
-name = "SickChill"
-url = "http://locip:8081"
-scale = 1
-icon = "muximux-tv"
-color = "#6fa8dc"
-enabled = "true"
-
 [Sonarr]
 name = "Sonarr"
 url = "http://locip:8989"
 scale = 1
 icon = "muximux-sonarr"
 color = "#674ea7"
+enabled = "true"
+
+[LazyLibrarian]
+name = "LazyLibrarian"
+url = "http://locip:5299"
+scale = 1
+icon = "muximux-lazylibrarian"
+color = "#f85c22"
 enabled = "true"
 
 [Tautulli]
