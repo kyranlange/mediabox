@@ -83,13 +83,21 @@ Reboot your machine manually, or using the command line:
 
 Once the prerequisites are all taken care of you can move forward with using mediabox.
 
-1.  Clone the mediabox repository: `$ git clone git@github.com:kyranlange/mediabox.git`
+1.  Create a user to run mediabox: `$ sudo adduser --no-create-home --shell /bin/false --group --system mediabox`
 
-2.  Change directory into mediabox: `$ cd mediabox/`
+2.  Add user to the docker group: `$ sudo usermod -aG docker mediabox`
 
-3.  Run the mediabox.sh script: `$ ./mediabox.sh`  (**See below for the script questions**)
+3.  Clone the mediabox repository: `$ git clone git@github.com:kyranlange/mediabox.git`
 
-4.  To upgrade Mediabox at anytime, re-run the mediabox script: `$ ./mediabox.sh`
+4.  Move to /opt: `$ sudo mv mediabox /opt/`
+
+4.  Change the owner of the mediabox files: `$ sudo chown -R mediabox:mediabox /opt/mediabox`
+
+5.  Change directory into mediabox: `$ cd /opt/mediabox/`
+
+3.  Run the mediabox.sh script: `$ sudo -g mediabox -u mediabox ./mediabox.sh`  (**See below for the script questions**)
+
+4.  To upgrade Mediabox at anytime, re-run the mediabox script: `$ sudo -g mediabox -u mediabox ./mediabox.sh`
 
 ### Please be prepared to supply the following details after you run Step 3 above
 
