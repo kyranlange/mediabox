@@ -1,9 +1,20 @@
 #!/bin/bash
 
+# User to run the containers as
+localuname=mediabox
+
 # Check that script was run not as root or with sudo
 if [ "$EUID" -eq 0 ]
   then echo "Please do not run this script as root or using sudo"
   exit
+fi
+
+# Check if user exists
+if ! id -u $localuname > /dev/null 2>&1; then
+    echo "The user does not exist; execute below commands to create and try again:"
+    echo "  > sudo adduser --no-create-home --shell /bin/false --group --system mediabox"
+    echo "  > sudo usermod -aG docker mediabox"
+    exit 1
 fi
 
 # set -x
@@ -49,6 +60,9 @@ if [ -e 1.env ]; then
     domain=$(grep DOMAIN 1.env | cut -d = -f2)
     email=$(grep EMAIL 1.env | cut -d = -f2)
     stackname=$(grep STACK_NAME 1.env | cut -d = -f2)
+    pmstag=$(grep PMSTAG 1.env | cut -d = -f2)
+    pmstoken=$(grep PMSTOKEN 1.env | cut -d = -f2)
+    vpnremote=$(grep VPN_REMOTE 1.env | cut -d = -f2)
     # Echo back the media directioies to see if changes are needed
     printf "These are the Media Directory paths currently configured.\\n"
     printf "Your DOWNLOAD Directory is: %s \\n" "$dldirectory"
@@ -66,8 +80,6 @@ if [ -e 1.env ]; then
     mv .env "$(date +"%Y-%m-%d_%H:%M").env"
 fi
 
-# Get local Username
-localuname=$(id -u -n)
 # Get PUID
 PUID=$(id -u "$localuname")
 # Get GUID
@@ -92,21 +104,25 @@ printf "\\n\\n"
 fi
 
 # Get info needed for PLEX Official image
-read -r -p "Which PLEX release do you want to run? By default 'public' will be used. (latest, public, plexpass): " pmstag
-read -r -p "If you have PLEXPASS what is your Claim Token from https://www.plex.tv/claim/ (Optional): " pmstoken
-# If not set - set PMS Tag to Public:
 if [ -z "$pmstag" ]; then
-   pmstag=public
+    read -r -p "Which PLEX release do you want to run? By default 'public' will be used. (latest, public, plexpass): " pmstag
+    read -r -p "If you have PLEXPASS what is your Claim Token from https://www.plex.tv/claim/ (Optional): " pmstoken
+    # If not set - set PMS Tag to Public:
+    if [ -z "$pmstag" ]; then
+        pmstag=public
+    fi
 fi
 
 # Get the info for the style of Portainer to use
-read -r -p "Which style of Portainer do you want to use? By default 'No Auth' will be used. (noauth, auth): " portainerstyle
 if [ -z "$portainerstyle" ]; then
-   portainerstyle=--no-auth
-elif [ "$portainerstyle" == "noauth" ]; then
-   portainerstyle=--no-auth
-elif [ "$portainerstyle" == "auth" ]; then
-   portainerstyle=
+    read -r -p "Which style of Portainer do you want to use? By default 'No Auth' will be used. (noauth, auth): " portainerstyle
+    if [ -z "$portainerstyle" ]; then
+    portainerstyle=--no-auth
+    elif [ "$portainerstyle" == "noauth" ]; then
+    portainerstyle=--no-auth
+    elif [ "$portainerstyle" == "auth" ]; then
+    portainerstyle=
+    fi
 fi
 
 # Ask user if they already have TV, Movie, and Music directories
@@ -144,33 +160,35 @@ mkdir -p sonarr
 mkdir -p lazylibrarian
 mkdir -p tautulli
 
-# Create menu - Select and Move the PIA VPN files
-echo "The following PIA Servers are avialable that support port-forwarding (for DelugeVPN); Please select one:"
-PS3="Use a number to select a Server File or 'c' to cancel: "
-# List the ovpn files
-select filename in ovpn/*.ovpn
-do
-    # leave the loop if the user says 'c'
-    if [[ "$REPLY" == c ]]; then break; fi
-    # complain if no file was selected, and loop to ask again
-    if [[ "$filename" == "" ]]
-    then
-        echo "'$REPLY' is not a valid number"
-        continue
-    fi
-    # now we can use the selected file
-    echo "$filename selected"
-    cp "$filename" delugevpn/config/openvpn/ > /dev/null 2>&1
-    cp "$filename" sabnzbdvpn/config/openvpn/ > /dev/null 2>&1
-    vpnremote=$(grep "remote" "$filename" | cut -d ' ' -f2  | head -1)
-    # it'll ask for another unless we leave the loop
-    break
-done
-# TODO - Add a default server selection if none selected ..
-cp ovpn/*.crt delugevpn/config/openvpn/ > /dev/null 2>&1
-cp ovpn/*.pem delugevpn/config/openvpn/ > /dev/null 2>&1
-cp ovpn/*.crt sabnzbdvpn/config/openvpn/ > /dev/null 2>&1
-cp ovpn/*.pem sabnzbdvpn/config/openvpn/ > /dev/null 2>&1
+if [ -z "$vpnremote" ]; then
+    # Create menu - Select and Move the PIA VPN files
+    echo "The following PIA Servers are avialable that support port-forwarding (for DelugeVPN and SabnzbdVPN); Please select one:"
+    PS3="Use a number to select a Server File or 'c' to cancel: "
+    # List the ovpn files
+    select filename in ovpn/*.ovpn
+    do
+        # leave the loop if the user says 'c'
+        if [[ "$REPLY" == c ]]; then break; fi
+        # complain if no file was selected, and loop to ask again
+        if [[ "$filename" == "" ]]
+        then
+            echo "'$REPLY' is not a valid number"
+            continue
+        fi
+        # now we can use the selected file
+        echo "$filename selected"
+        cp "$filename" delugevpn/config/openvpn/ > /dev/null 2>&1
+        cp "$filename" sabnzbdvpn/config/openvpn/ > /dev/null 2>&1
+        vpnremote=$(grep "remote" "$filename" | cut -d ' ' -f2  | head -1)
+        # it'll ask for another unless we leave the loop
+        break
+    done
+    # TODO - Add a default server selection if none selected ..
+    cp ovpn/*.crt delugevpn/config/openvpn/ > /dev/null 2>&1
+    cp ovpn/*.pem delugevpn/config/openvpn/ > /dev/null 2>&1
+    cp ovpn/*.crt sabnzbdvpn/config/openvpn/ > /dev/null 2>&1
+    cp ovpn/*.pem sabnzbdvpn/config/openvpn/ > /dev/null 2>&1
+fi
 
 # Create the .env file
 echo "Creating the .env file with the values we have gathered"
