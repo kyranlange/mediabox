@@ -83,7 +83,7 @@ services:
             - PGID=${PGID}
         volumes:
             - './lidarr:/config'
-            - '${DLDIR}/complete:/data/completed'
+            - '${DLDIR}/complete:/data/complete'
             - '${MUSICDIR}:/music'
             - '/etc/localtime:/etc/localtime:ro'
 
@@ -263,7 +263,7 @@ services:
             - PGID=${PGID}
         volumes:
             - './radarr:/config'
-            - '${DLDIR}/complete:/data/completed'
+            - '${DLDIR}/complete:/data/complete'
             - '${MOVIEDIR}:/movies'
             - '/etc/localtime:/etc/localtime:ro'
 
@@ -283,7 +283,7 @@ services:
             - TZ=${TZ}
         volumes:
             - './sonarr:/config'
-            - '${DLDIR}/complete:/data/completed'
+            - '${DLDIR}/complete:/data/complete'
             - '${TVDIR}:/tv'
             - '/etc/localtime:/etc/localtime:ro'
 
