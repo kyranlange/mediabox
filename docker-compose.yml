@@ -88,6 +88,7 @@ services:
             - './lazylibrarian:/config'
             - '${DLDIR}/complete/books:/downloads'
             - '${BOOKDIR}:/books'
+            - '${AUDIOBOOKDIR}:/audiobook'
             - '/etc/localtime:/etc/localtime:ro'
 
     # ----------------------------------------
