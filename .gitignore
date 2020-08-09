@@ -1,4 +1,3 @@
-README.md
 content
 
 ### Windows ###
@@ -25,3 +24,20 @@ $RECYCLE.BIN/
 # Intelij Files
 .idea/
 *.iml
+
+delugevpn
+historical/env_files
+jackett
+lidarr
+muximux
+sabnzbdvpn
+ombi
+"plex/Library/Application Support/Plex Media Server/Logs"
+portainer
+radarr
+sonarr
+lazylibrarian
+tautulli
+plex
+
+*.env
