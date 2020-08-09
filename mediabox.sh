@@ -63,14 +63,15 @@ if [ -e 1.env ]; then
     pmstag=$(grep PMSTAG 1.env | cut -d = -f2)
     pmstoken=$(grep PMSTOKEN 1.env | cut -d = -f2)
     vpnremote=$(grep VPN_REMOTE 1.env | cut -d = -f2)
-    # Echo back the media directioies to see if changes are needed
+    # Echo back the media directories, and other info to see if changes are needed
     printf "These are the Media Directory paths currently configured.\\n"
     printf "Your DOWNLOAD Directory is: %s \\n" "$dldirectory"
     printf "Your TV Directory is: %s \\n" "$tvdirectory"
     printf "Your MOVIE Directory is: %s \\n" "$moviedirectory"
     printf "Your MUSIC Directory is: %s \\n" "$musicdirectory"
     printf "Your BOOK Directory is: %s \\n" "$bookdirectory"
-    read  -r -p "Are these directiores still correct? (y/n) " diranswer
+    read  -r -p "Are these directiores still correct? (y/n) " diranswer `echo \n`
+    read  -r -p "Do you need to change your PIA Credentials? (y/n) " piaanswer `echo \n`
     # Now we need ".env" to exist again so we can stop just the Medaibox containers
     mv 1.env .env
     # Stop the current Mediabox stack
@@ -97,9 +98,14 @@ slash=$(ip a | grep "$locip" | cut -d ' ' -f6 | awk -F '/' '{print $2}')
 lannet=$(awk -F"." '{print $1"."$2"."$3".0"}'<<<$locip)/$slash
 
 # Get Private Internet Access Info
-if [ -z "$piauname" ]; then
+if [ -z "$piaanswer" ]; then
 read -r -p "What is your PIA Username?: " piauname
 read -r -s -p "What is your PIA Password? (Will not be echoed): " piapass
+printf "\\n\\n"
+fi
+if [ "$piaanswer" == "y" ]; then
+read -r -p "What is your New PIA Username?: " piauname
+read -r -s -p "What is your New PIA Password? (Will not be echoed): " piapass
 printf "\\n\\n"
 fi
 
