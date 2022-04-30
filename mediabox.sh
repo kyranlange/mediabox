@@ -129,7 +129,6 @@ fi
 if [ -z "$pmstag" ]; then
    pmstag=public
 fi
-fi
 
 # Get the info for the style of Portainer to use
 if [ -z "$portainerstyle" ]; then
