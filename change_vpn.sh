@@ -42,7 +42,7 @@ do
     rm sabnzbdvpn/config/openvpn/*.pem > /dev/null 2>&1
     # copy the selected ovpn file to deluge & sabnzbd config/ovpn
     cp "$filename" delugevpn/config/openvpn/ > /dev/null 2>&1
-    cp "$filename" sabnzbdvpn/config/openvpn/ > /dev/null 2>&
+    cp "$filename" sabnzbdvpn/config/openvpn/ > /dev/null 2>&1
 
     vpnremote=$(grep "remote" "$filename" | cut -d ' ' -f2  | head -1)
     # Adjust for the PIA OpenVPN ciphers fallback
