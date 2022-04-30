@@ -43,14 +43,6 @@ icon = "muximux-deluge"
 color = "#385171"
 enabled = "true"
 
-[Duplicati]
-name = "Duplicati"
-url = "http://locip:8200"
-scale = 1
-icon = "muximux-copy2"
-color = "#6fa8dc"
-enabled = "true"
-
 [Jackett]
 name = "Jackett"
 url = "http://locip:9117"

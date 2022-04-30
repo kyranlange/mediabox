@@ -252,6 +252,19 @@ services:
             - '/etc/localtime:/etc/localtime:ro'
 
     # ----------------------------------------
+    # Plex Meta Manager
+    # ----------------------------------------
+    plex-meta-manager:
+        image: meisnate12/plex-meta-manager
+        container_name: plex-meta-manager
+        restart: unless-stopped
+        network_mode: "bridge"
+        volumes:
+            - './plex-meta-manager:/config:rw'
+        depends_on:
+            - plex
+
+    # ----------------------------------------
     # PORTAINER
     # ----------------------------------------
     portainer:
@@ -329,15 +342,3 @@ services:
         depends_on:
             - plex
             
-    # ----------------------------------------
-    # Plex Meta Manager
-    # ----------------------------------------
-    plex-meta-manager:
-        image: meisnate12/plex-meta-manager
-        container_name: plex-meta-manager
-        restart: unless-stopped
-        network_mode: "bridge"
-        volumes:
-            - './plex-meta-manager:/config:rw'
-        depends_on:
-            - plex

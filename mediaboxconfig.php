@@ -49,11 +49,6 @@ When adding libraries to PLEX use these settings:<br />
 <li>TV = /data/tvshows<br />
 </ul>
 <br />
-<b><u>NBZGet:</u></b><br />
-<ul>
-<li>Username: daemonun<br />
-<li>Password: daemonpass<br />
-</ul>
 <h3>Mediabox Management Containers</h3>
 <b><u>Portainer:</u></b><br />
 To help you manage your Mediabox Docker containers Portainer is available.<br />

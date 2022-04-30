@@ -21,6 +21,19 @@ fi
 
 # See if we need to check GIT for updates
 if [ -e .env ]; then
+    # Check for Updated Docker-Compose
+    printf "Checking for update to Docker-Compose (If needed - You will be prompted for SUDO credentials).\\n\\n"
+    onlinever=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep "tag_name" | cut -d ":" -f2 | sed 's/"//g' | sed 's/,//g' | sed 's/ //g')
+    printf "Current online version is: %s \\n" "$onlinever"
+    localver=$(docker-compose -v | cut -d " " -f4 | sed 's/,//g')
+    printf "Current local version is: %s \\n" "$localver"
+    if [ "$localver" != "$onlinever" ]; then
+        sudo curl -s https://api.github.com/repos/docker/compose/releases/latest | grep "browser_download_url" | grep -i -m1 "$(uname -s)"-"$(uname -m)" | cut -d '"' -f4 | xargs sudo curl -L -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+        printf "\\n\\n"
+    else
+        printf "No Docker-Compose Update needed.\\n\\n"
+    fi
     # Stash any local changes to the base files
     git stash > /dev/null 2>&1
     printf "Updating your local copy of Mediabox.\\n\\n"
@@ -28,9 +41,6 @@ if [ -e .env ]; then
     git pull
     # Check to see if this script "mediabox.sh" was updated and restart it if necessary
     changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
-    check_run() {
-        echo "$changed_files" | grep --quiet "$1" && eval "$2"
-    }
     # Provide a message once the Git check/update  is complete
     if [ -z "$changed_files" ]; then
         printf "Your Mediabox is current - No Update needed.\\n\\n"
@@ -42,7 +52,7 @@ if [ -e .env ]; then
     read -r -p "Press any key to continue... " -n1 -s
     printf "\\n\\n"
     # Run exec mediabox.sh if mediabox.sh changed
-    check_run mediabox.sh "exec ./mediabox.sh"
+    grep --q "$changed_files" mediabox.sh && echo "mediabox.sh restarting" && exec $0
 fi
 
 # After update collect some current known variables
@@ -70,8 +80,14 @@ if [ -e 1.env ]; then
     printf "Your MOVIE Directory is: %s \\n" "$moviedirectory"
     printf "Your MUSIC Directory is: %s \\n" "$musicdirectory"
     printf "Your BOOK Directory is: %s \\n" "$bookdirectory"
-    read  -r -p "Are these directiores still correct? (y/n) " diranswer `echo \n`
-    read  -r -p "Do you need to change your PIA Credentials? (y/n) " piaanswer `echo \n`
+    printf "\\n\\n"
+    read  -r -p "Are these directiores still correct? (y/n) " diranswer "$(echo \n)"
+    printf "\\n\\n"
+    printf "Your PLEX Release Type is: %s" "$pmstag"
+    printf "\\n\\n"
+    read  -r -p "Do you need to change your PLEX Release Type? (y/n) " pmsanswer "$(echo \n)"
+    printf "\\n\\n"
+    read  -r -p "Do you need to change your PIA Credentials? (y/n) " piaanswer "$(echo \n)"
     # Now we need ".env" to exist again so we can stop just the Medaibox containers
     mv 1.env .env
     # Stop the current Mediabox stack
@@ -95,28 +111,24 @@ locip=$(hostname -I | awk '{print $1}')
 time_zone=$(cat /etc/timezone)	
 # Get CIDR Address
 slash=$(ip a | grep "$locip" | cut -d ' ' -f6 | awk -F '/' '{print $2}')
-lannet=$(awk -F"." '{print $1"."$2"."$3".0"}'<<<$locip)/$slash
+lannet=$(awk -F"." '{print $1"."$2"."$3".0"}'<<<"$locip")/$slash
 
 # Get Private Internet Access Info
-if [ -z "$piaanswer" ]; then
+if [ -z "$piaanswer" ] || [ "$piaanswer" == "y" ]; then
 read -r -p "What is your PIA Username?: " piauname
 read -r -s -p "What is your PIA Password? (Will not be echoed): " piapass
 printf "\\n\\n"
 fi
-if [ "$piaanswer" == "y" ]; then
-read -r -p "What is your New PIA Username?: " piauname
-read -r -s -p "What is your New PIA Password? (Will not be echoed): " piapass
-printf "\\n\\n"
-fi
 
 # Get info needed for PLEX Official image
+if [ -z "$pmstag" ] || [ "$pmsanswer" == "y" ]; then
+read -r -p "Which PLEX release do you want to run? By default 'public' will be used. (latest, public, plexpass): " pmstag
+read -r -p "If you have PLEXPASS what is your Claim Token from https://www.plex.tv/claim/ (Optional): " pmstoken
+fi
+# If not set - set PMS Tag to Public:
 if [ -z "$pmstag" ]; then
-    read -r -p "Which PLEX release do you want to run? By default 'public' will be used. (latest, public, plexpass): " pmstag
-    read -r -p "If you have PLEXPASS what is your Claim Token from https://www.plex.tv/claim/ (Optional): " pmstoken
-    # If not set - set PMS Tag to Public:
-    if [ -z "$pmstag" ]; then
-        pmstag=public
-    fi
+   pmstag=public
+fi
 fi
 
 # Get the info for the style of Portainer to use
@@ -153,18 +165,28 @@ fi
 
 mkdir -p delugevpn
 mkdir -p delugevpn/config/openvpn
+#mkdir -p filebrowser
+#mkdir -p flaresolverr
 mkdir -p historical/env_files
+#mkdir -p homer
 mkdir -p jackett
 mkdir -p lidarr
+#mkdir -p metube
 mkdir -p muximux
 mkdir -p sabnzbdvpn/config/openvpn
 mkdir -p ombi
+#mkdir -p overseerr
 mkdir -p "plex/Library/Application Support/Plex Media Server/Logs"
 mkdir -p portainer
+#mkdir -p prowlarr
 mkdir -p radarr
+#mkdir -p requestrr
 mkdir -p sonarr
 mkdir -p lazylibrarian
+#mkdir -p speedtest
 mkdir -p tautulli
+#mkdir -p tdarr
+#mkdir -p tubesync
 
 if [ -z "$vpnremote" ]; then
     # Create menu - Select and Move the PIA VPN files
@@ -183,9 +205,24 @@ if [ -z "$vpnremote" ]; then
         fi
         # now we can use the selected file
         echo "$filename selected"
+        # remove any existing ovpn, crt & pem files in the deluge config/ovpn
+        rm delugevpn/config/openvpn/*.ovpn > /dev/null 2>&1
+        rm delugevpn/config/openvpn/*.crt > /dev/null 2>&1
+        rm delugevpn/config/openvpn/*.pem > /dev/null 2>&1
+        # remove any existing ovpn, crt & pem files in the sabnzbd config/ovpn
+        rm sabnzbdvpn/config/openvpn/*.ovpn > /dev/null 2>&1
+        rm sabnzbdvpn/config/openvpn/*.crt > /dev/null 2>&1
+        rm sabnzbdvpn/config/openvpn/*.pem > /dev/null 2>&1
+        # copy the selected ovpn file to deluge & sabnzbd config/ovpn
         cp "$filename" delugevpn/config/openvpn/ > /dev/null 2>&1
         cp "$filename" sabnzbdvpn/config/openvpn/ > /dev/null 2>&1
+
         vpnremote=$(grep "remote" "$filename" | cut -d ' ' -f2  | head -1)
+        # Adjust for the PIA OpenVPN ciphers fallback
+        echo "cipher aes-256-gcm" >> delugevpn/config/openvpn/*.ovpn
+        echo "ncp-disable" >> delugevpn/config/openvpn/*.ovpn
+        echo "cipher aes-256-gcm" >> sabnzbdvpn/config/openvpn/*.ovpn
+        echo "ncp-disable" >> sabnzbdvpn/config/openvpn/*.ovpn
         # it'll ask for another unless we leave the loop
         break
     done
@@ -269,7 +306,7 @@ perl -i -pe 's/"allow_remote": false,/"allow_remote": true,/g'  delugevpn/config
 perl -i -pe 's/"move_completed": false,/"move_completed": true,/g'  delugevpn/config/core.conf
 docker start delugevpn > /dev/null 2>&1
 
-# Push the Deluge Daemon Access info the to Auth file - and to the .env file
+# Push the Deluge Daemon Access info the to Auth file and to the .env file
 echo "$daemonun":"$daemonpass":10 >> ./delugevpn/config/auth
 {
 echo "CPDAEMONUN=$daemonun"
@@ -287,6 +324,7 @@ perl -i -pe "s/daemonun/$daemonun/g" muximux/www/muximux/mediaboxconfig.php
 perl -i -pe "s/daemonpass/$daemonpass/g" muximux/www/muximux/mediaboxconfig.php
 docker start muximux > /dev/null 2>&1
 
+# Completion Message
 printf "Setup Complete - Open a browser and go to: \\n\\n"
 printf "http://%s \\nOR http://%s If you have appropriate DNS configured.\\n\\n" "$locip" "$thishost"
 printf "Start with the MEDIABOX Icon for settings and configuration info.\\n"
