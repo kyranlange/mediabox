@@ -19,6 +19,7 @@ Components include:
 *   [Sonarr TV library manager](https://sonarr.tv/)
 *   [Tautulli Plex Media Server monitor](https://github.com/tautulli/tautulli)
 *   [LazyLibrarian Book collection manager](https://lazylibrarian.gitlab.io/)
+*   [Plex Meta manager](https://metamanager.wiki/en/latest/)
 
 ## Prerequisites
 
@@ -93,6 +94,8 @@ Once the prerequisites are all taken care of you can move forward with using med
 
 5.  Change directory into mediabox: `$ cd /opt/mediabox/`
 
+6.  Add credentials needed for plex meta manager to `plex-meta-manager/config.yml` - see the [Docker Walkthrough](https://metamanager.wiki/en/latest/home/guides/docker.html) for more info.
+
 6.  Run the mediabox.sh script: `$ ./mediabox.sh`  (**See below for the script questions**)
 
 7.  To upgrade Mediabox at anytime, re-run the mediabox script: `$ ./mediabox.sh`
@@ -116,15 +119,17 @@ As the script runs you will be prompted for:
     *   **auth** (will require a password, require a persistent volume map, and will need you to select the endpoint to manage)
     *   **noauth** (will not require a password for access and will automatically connect to the local Docker sock endpoint)
 
-4.  Credentials for the NBZGet interface and the Deluge daemon which needed for the CouchPotato container.
+4.  Credentials for the Deluge daemon which needed for the CouchPotato container.
     *   **username**
     *   **password**
 
 Upon completion, the script will launch your mediabox containers.
 
-### **Mediabox has been tested to work on Ubuntu 16.04 LTS / 18.04 LTS - Server and Desktop**
+### **Mediabox has been tested to work on Ubuntu 18.04 LTS / 20.04 LTS - Server**
 
 **Thanks go out to:**
+
+[@tom472](https://github.com/tom472/mediabox) - Started and continues to improve this project - the majority of this is from them.
 
 [@kspillane](https://github.com/kspillane) - Jumped right in and is providing helpful commits / PRs
 

@@ -1,0 +1,111 @@
+######################################################
+# Movie Collections (Missing from meisnate12/Movies) #
+######################################################
+templates:
+  Collection:
+    optional:
+      - collection
+      - movie
+    tmdb_collection_details: <<collection>>
+    tmdb_movie: <<movie>>
+    sync_mode: sync
+    collection_order: release
+collections:
+  30 Days of Night:
+    template: {name: Collection, collection: 91660}
+  Ace Ventura:
+    template: {name: Collection, collection: 3167}
+  Analyze:
+    template: {name: Collection, collection: 110127}
+  Army of the Dead:
+    template: {name: Collection, collection: 809185}
+  Batman (DC Universe Animated):
+    template: {name: Collection, collection: 421904}
+  Batman: The Dark Knight Returns:
+    template: {name: Collection, collection: 248534}
+  Bridget Jones:
+    template: {name: Collection, collection: 8936}
+  The Christmas Chronicles:
+    template: {name: Collection, collection: 743824}
+  Coming to America:
+    template: {name: Collection, collection: 647077}
+  Conan the Barbarian:
+    template: {name: Collection, collection: 43055}
+  Crank:
+    template: {name: Collection, collection: 64751}
+  Eastrail 177 Trilogy:
+    template: {name: Collection}
+    imdb_list: https://www.imdb.com/list/ls024083258/
+    summary: The Eastrail 177 Trilogy is an American superhero thriller and psychological horror film series. 
+  Father of the Bride:
+    template: {name: Collection, collection: 96871}
+  Fear Street:
+    template: {name: Collection, collection: 790370}
+  Futurama:
+    template: {name: Collection, collection: 13800}
+  Generation Iron:
+    template: {name: Collection, collection: 522231}
+  Herbie:
+    template: {name: Collection, collection: 12087}
+  Insidious:
+    template: {name: Collection, collection: 228446}
+  Jack Reacher:
+    template: {name: Collection, collection: 403374}
+  Jackass:
+    template: {name: Collection, collection: 17178}
+  Johnny English:
+    template: {name: Collection, collection: 86117}
+  Kindergarten Cop:
+    template: {name: Collection, collection: 397444}
+  Knocked Up:
+    template: {name: Collection, collection: 779062}
+  Lone Wolf and Cub:
+    template: {name: Collection, collection: 102128}
+  Machete:
+    template: {name: Collection, collection: 210006}
+  Man of Steel:
+    template: {name: Collection, collection: 209131}
+  Mechanic:
+    template: {name: Collection, collection: 280504}
+  The Millennium:
+    template: {name: Collection, collection: 24761}
+  National Lampoon's Vacation:
+    template: {name: Collection}
+    imdb_list: https://www.imdb.com/list/ls068028102/
+  Paranormal Activity:
+    template: {name: Collection, collection: 41437}
+  Prometheus:
+    template: {name: Collection, collection: 135416}
+  A Quiet Place:
+    template: {name: Collection, collection: 521226}
+  Red:
+    template: {name: Collection, collection: 163902}
+  The Ring:
+    template: {name: Collection, collection: 14563}
+  Sicario:
+    template: {name: Collection, collection: 496796}
+  Sinister:
+    template: {name: Collection, collection: 357173}
+  SparkShorts:
+    template: {name: Collection}
+    imdb_list: https://www.imdb.com/list/ls092267335/
+  Speed:
+    template: {name: Collection, collection: 43064}
+  Studio Ghibli:
+    template: {name: Collection}
+    imdb_list: https://www.imdb.com/list/ls066662290/
+  Suicide Squad:
+    template: {name: Collection}
+    imdb_list: https://www.imdb.com/list/ls507343771/
+  Trailer Park Boys:
+    template: {name: Collection, collection: 101385}
+  True North Collection:
+    template: {name: Collection, collection: 553902}
+  The Twilight:
+    template: {name: Collection, collection: 33514}
+  Venom:
+    template: {name: Collection, collection: 558216}
+  WarGames:
+    template: {name: Collection, collection: 151263}
+  The Wolverine:
+    template: {name: Collection, collection: 453993}

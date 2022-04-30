@@ -39,5 +39,8 @@ sonarr
 lazylibrarian
 tautulli
 plex
+plex-meta-manager/logs
+plex-meta-manager/config.cache
+plex-meta-manager/*_missing.yml
 
 *.env

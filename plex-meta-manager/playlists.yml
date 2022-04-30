@@ -1,0 +1,61 @@
+playlists:
+  Marvel Cinematic Universe:
+    sync_to_users: all
+    sync_mode: sync
+    libraries: Movies, TV Shows
+    trakt_list: https://trakt.tv/users/donxy/lists/marvel-cinematic-universe?sort=rank,asc
+    summary: Marvel Cinematic Universe In Order
+    url_poster: https://imgur.com/cx4CpKo
+  X-Men Movies Chronological Order:
+    sync_to_users: all
+    sync_mode: sync
+    libraries: Movies, TV Shows
+    trakt_list: https://trakt.tv/users/donxy/lists/x-men-universe?sort=rank,asc
+    url_poster: https://imgur.com/SDliKrF
+  Star Wars Movies Chronological Order:
+    sync_to_users: all
+    sync_mode: sync
+    libraries: Movies, TV Shows
+    trakt_list: https://trakt.tv/users/draackje/lists/star-wars?sort=rank,asc
+    url_poster: https://imgur.com/3mjh2IC
+  Walt Disney Animated Feature Films:
+    sync_to_users: all
+    sync_mode: sync
+    libraries: Movies, TV Shows
+    trakt_list: https://trakt.tv/users/movistapp/lists/walt-disney-animated-feature-films?sort=rank,asc
+  James Bond Movies Chronological Order:
+    sync_to_users: all
+    sync_mode: sync
+    libraries: Movies, TV Shows
+    trakt_list: https://trakt.tv/users/any/lists/james-bond?sort=rank,asc
+    url_poster: https://imgur.com/D32fFj3
+  Fast & Furious Movies Chronological Order:
+    sync_to_users: all
+    sync_mode: sync
+    libraries: Movies, TV Shows
+    trakt_list: https://trakt.tv/users/mausk/lists/fast-furious?sort=rank,desc
+    url_poster: https://imgur.com/xD4UaZr
+  Harry Potter Movies Chronological Order:
+    sync_to_users: all
+    sync_mode: sync
+    libraries: Movies, TV Shows
+    trakt_list: https://trakt.tv/users/goldveia/lists/harry-potter?sort=rank,asc  
+    url_poster: https://imgur.com/U9hMb2s
+  Lord of the Rings Movies Chronological Order:
+    sync_to_users: all
+    sync_mode: sync
+    libraries: Movies, TV Shows
+    trakt_list: https://trakt.tv/users/spite84/lists/lord-of-the-rings?sort=rank,asc
+    url_poster: https://imgur.com/kBTAKrD
+  Jurassic Park Movies Chronological Order:
+    sync_to_users: all
+    sync_mode: sync
+    libraries: Movies, TV Shows
+    trakt_list: https://trakt.tv/users/iamgabriel/lists/jurassic?sort=rank,asc
+    url_poster: https://imgur.com/OGGfRwb
+  Hunger Games Movies Chronological Order:
+    sync_to_users: all
+    sync_mode: sync
+    libraries: Movies, TV Shows
+    trakt_list: https://trakt.tv/users/gapunk78/lists/hunger-games?sort=rank,asc
+    url_poster: https://imgur.com/5zGSCgb
