@@ -17,6 +17,7 @@ Components include:
 *   [Radarr movie library manager](https://radarr.video/)
 *   [SABnzbd Usenet download tool (using VPN)](https://github.com/sabnzbd/sabnzbd)
 *   [Sonarr TV library manager](https://sonarr.tv/)
+*   [Speedtest - Tracker](https://github.com/henrywhitaker3/Speedtest-Tracker)
 *   [Tautulli Plex Media Server monitor](https://github.com/tautulli/tautulli)
 *   [LazyLibrarian Book collection manager](https://lazylibrarian.gitlab.io/)
 *   [Plex Meta manager](https://metamanager.wiki/en/latest/)

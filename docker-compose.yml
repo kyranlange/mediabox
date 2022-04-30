@@ -323,6 +323,24 @@ services:
             - '/etc/localtime:/etc/localtime:ro'
 
     # ----------------------------------------
+    # SPEEDTEST
+    # ----------------------------------------
+    speedtest:
+        image: henrywhitaker3/speedtest-tracker:dev
+        container_name: speedtest
+        restart: unless-stopped
+        network_mode: "bridge"
+        ports:
+            - '${IP_ADDRESS}:8765:80'
+        environment:
+            - TZ=${TZ}
+            - PGID=${PGID}
+            - PUID=${PUID}
+            - OOKLA_EULA_GDPR=true
+        volumes:
+            - './speedtest:/config'
+
+    # ----------------------------------------
     # TAUTULLI
     # ----------------------------------------
     tautulli:

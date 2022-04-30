@@ -183,7 +183,7 @@ mkdir -p radarr
 #mkdir -p requestrr
 mkdir -p sonarr
 mkdir -p lazylibrarian
-#mkdir -p speedtest
+mkdir -p speedtest
 mkdir -p tautulli
 #mkdir -p tdarr
 #mkdir -p tubesync

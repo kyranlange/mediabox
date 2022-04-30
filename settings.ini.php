@@ -51,6 +51,14 @@ icon = "muximux-jackett"
 color = "#000000"
 enabled = "true"
 
+[LazyLibrarian]
+name = "LazyLibrarian"
+url = "http://locip:5299"
+scale = 1
+icon = "muximux-books"
+color = "#f85c22"
+enabled = "true"
+
 [Lidarr]
 name = "Lidarr"
 url = "http://locip:8686"
@@ -115,12 +123,12 @@ icon = "muximux-sonarr"
 color = "#674ea7"
 enabled = "true"
 
-[LazyLibrarian]
-name = "LazyLibrarian"
-url = "http://locip:5299"
+[Speedest]
+name = "Speedtest"
+url = "http://locip:8765"
 scale = 1
-icon = "muximux-books"
-color = "#f85c22"
+icon = "muximux-stopwatch"
+color = "#cc0000"
 enabled = "true"
 
 [Tautulli]
