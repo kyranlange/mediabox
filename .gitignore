@@ -42,5 +42,6 @@ plex
 plex-meta-manager/logs
 plex-meta-manager/config.cache
 plex-meta-manager/*_missing.yml
+speedtest
 
 *.env
