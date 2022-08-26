@@ -119,9 +119,17 @@ collections:
     url_poster: https://i.imgur.com/lqXRQdd.png
 
   Best of 2012:
-    template: { name: Best of, year: 2012 }
+    trakt_list: https://trakt.tv/users/sp1ti/lists/a-v-club-s-best-films-of-2012
+    sort_title: +2_Best of 2012
+    sync_mode: sync
+    summary: A.V. Club's Best films of 2012
+    smart_label: audience_rating.desc
   Best of 2013:
-    template: { name: Best of, year: 2013 }
+    trakt_list: https://trakt.tv/users/pdiddy973/lists/rotten-tomatoes-best-of-2013
+    sort_title: +2_Best of 2013
+    sync_mode: sync
+    summary: Rotten Tomatoes Best Movies of 2013
+    smart_label: audience_rating.desc
   Best of 2014:
     template: { name: Best of, year: 2014 }
   Best of 2015:
@@ -140,3 +148,13 @@ collections:
     template: { name: Best of, year: 2021 }
   Best of 2022:
     template: { name: Best of, year: 2022 }
+
+  Kids Movies:
+    trakt_list:
+     - https://trakt.tv/users/jarvis-8840774/lists/g-rated-animations-65
+     - https://trakt.tv/users/jtludwig/lists/kids-movies
+     - https://trakt.tv/users/giladg/lists/rotten-tomatoes-top-100-kids-family-movies
+    smart_label: critic_rating.desc
+    sync_mode: sync
+    sort_title: +_Kids Movies
+    summary: The best family and kids movies.
