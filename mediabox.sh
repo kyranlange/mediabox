@@ -64,6 +64,7 @@ if [ -e 1.env ]; then
     piapass=$(grep PIAPASS 1.env | cut -d = -f2)
     dldirectory=$(grep DLDIR 1.env | cut -d = -f2)
     tvdirectory=$(grep TVDIR 1.env | cut -d = -f2)
+    miscdirectory=$(grep MISCDIR 1.env | cut -d = -f2)
     moviedirectory=$(grep MOVIEDIR 1.env | cut -d = -f2)
     musicdirectory=$(grep MUSICDIR 1.env | cut -d = -f2)
     bookdirectory=$(grep BOOKDIR 1.env | cut -d = -f2)
@@ -77,6 +78,7 @@ if [ -e 1.env ]; then
     printf "These are the Media Directory paths currently configured.\\n"
     printf "Your DOWNLOAD Directory is: %s \\n" "$dldirectory"
     printf "Your TV Directory is: %s \\n" "$tvdirectory"
+    printf "Your MISC Directory is: %s \\n" "$miscdirectory"
     printf "Your MOVIE Directory is: %s \\n" "$moviedirectory"
     printf "Your MUSIC Directory is: %s \\n" "$musicdirectory"
     printf "Your BOOK Directory is: %s \\n" "$bookdirectory"
@@ -130,18 +132,6 @@ if [ -z "$pmstag" ]; then
    pmstag=public
 fi
 
-# Get the info for the style of Portainer to use
-if [ -z "$portainerstyle" ]; then
-    read -r -p "Which style of Portainer do you want to use? By default 'No Auth' will be used. (noauth, auth): " portainerstyle
-    if [ -z "$portainerstyle" ]; then
-    portainerstyle=--no-auth
-    elif [ "$portainerstyle" == "noauth" ]; then
-    portainerstyle=--no-auth
-    elif [ "$portainerstyle" == "auth" ]; then
-    portainerstyle=
-    fi
-fi
-
 # Ask user if they already have TV, Movie, and Music directories
 if [ -z "$diranswer" ]; then
 printf "\\n\\n"
@@ -150,6 +140,7 @@ printf "If you want Mediabox to generate it's own directories just press enter t
 printf "\\n\\n"
 read -r -p "Where do you store your DOWNLOADS? (Please use full path - /path/to/downloads ): " dldirectory
 read -r -p "Where do you store your TV media? (Please use full path - /path/to/tv ): " tvdirectory
+read -r -p "Where do you store your MISC media? (Please use full path - /path/to/misc ): " miscdirectory
 read -r -p "Where do you store your MOVIE media? (Please use full path - /path/to/movies ): " moviedirectory
 read -r -p "Where do you store your MUSIC media? (Please use full path - /path/to/music ): " musicdirectory
 read -r -p "Where do you store your BOOK media? (Please use full path - /path/to/books ): " bookdirectory
@@ -157,6 +148,7 @@ fi
 if [ "$diranswer" == "n" ]; then
 read -r -p "Where do you store your DOWNLOADS? (Please use full path - /path/to/downloads ): " dldirectory
 read -r -p "Where do you store your TV media? (Please use full path - /path/to/tv ): " tvdirectory
+read -r -p "Where do you store your MISC media? (Please use full path - /path/to/misc ): " miscdirectory
 read -r -p "Where do you store your MOVIE media? (Please use full path - /path/to/movies ): " moviedirectory
 read -r -p "Where do you store your MUSIC media? (Please use full path - /path/to/music ): " musicdirectory
 read -r -p "Where do you store your BOOK media? (Please use full path - /path/to/books ): " bookdirectory
@@ -164,14 +156,14 @@ fi
 
 mkdir -p delugevpn
 mkdir -p delugevpn/config/openvpn
+mkdir -p glances
 #mkdir -p filebrowser
 #mkdir -p flaresolverr
 mkdir -p historical/env_files
-#mkdir -p homer
+mkdir -p homer
 mkdir -p jackett
 mkdir -p lidarr
-#mkdir -p metube
-mkdir -p muximux
+mkdir -p metube
 mkdir -p sabnzbdvpn/config/openvpn
 mkdir -p ombi
 #mkdir -p overseerr
@@ -219,9 +211,7 @@ if [ -z "$vpnremote" ]; then
         vpnremote=$(grep "remote" "$filename" | cut -d ' ' -f2  | head -1)
         # Adjust for the PIA OpenVPN ciphers fallback
         echo "cipher aes-256-gcm" >> delugevpn/config/openvpn/*.ovpn
-        echo "ncp-disable" >> delugevpn/config/openvpn/*.ovpn
         echo "cipher aes-256-gcm" >> sabnzbdvpn/config/openvpn/*.ovpn
-        echo "ncp-disable" >> sabnzbdvpn/config/openvpn/*.ovpn
         # it'll ask for another unless we leave the loop
         break
     done
@@ -256,6 +246,7 @@ echo "DOCKERGRP=$DOCKERGRP"
 echo "PWD=$PWD"
 echo "DLDIR=$dldirectory"
 echo "TVDIR=$tvdirectory"
+echo "MISCDIR=$miscdirectory"
 echo "MOVIEDIR=$moviedirectory"
 echo "MUSICDIR=$musicdirectory"
 echo "BOOKDIR=$bookdirectory"
@@ -265,7 +256,6 @@ echo "CIDR_ADDRESS=$lannet"
 echo "TZ=$time_zone"
 echo "PMSTAG=$pmstag"
 echo "PMSTOKEN=$pmstoken"
-echo "PORTAINERSTYLE=$portainerstyle"
 echo "VPN_REMOTE=$vpnremote"
 } >> .env
 echo ".env file creation complete"
@@ -274,6 +264,10 @@ printf "\\n\\n"
 # Move back-up .env files
 mv 20*.env historical/env_files/ > /dev/null 2>&1
 mv historical/20*.env historical/env_files/ > /dev/null 2>&1
+
+# Adjust for removal of Muximux
+docker rm -f muximux > /dev/null 2>&1
+[ -d "muximux/" ] && mv muximux/ historical/muximux/
 
 # Download & Launch the containers
 echo "The containers will now be pulled and launched"
@@ -311,17 +305,24 @@ echo "$daemonun":"$daemonpass":10 >> ./delugevpn/config/auth
 echo "CPDAEMONUN=$daemonun"
 echo "CPDAEMONPASS=$daemonpass"
 } >> .env
-# Configure Muximux settings and files
-while [ ! -f muximux/www/muximux/settings.ini.php-example ]; do sleep 1; done
-docker stop muximux > /dev/null 2>&1
-cp settings.ini.php muximux/www/muximux/settings.ini.php
-cp mediaboxconfig.php muximux/www/muximux/mediaboxconfig.php
-sed '/^PIA/d' < .env > muximux/www/muximux/env.txt # Pull PIA creds from the displayed .env file
-perl -i -pe "s/locip/$locip/g" muximux/www/muximux/settings.ini.php
-perl -i -pe "s/locip/$locip/g" muximux/www/muximux/mediaboxconfig.php
-perl -i -pe "s/daemonun/$daemonun/g" muximux/www/muximux/mediaboxconfig.php
-perl -i -pe "s/daemonpass/$daemonpass/g" muximux/www/muximux/mediaboxconfig.php
-docker start muximux > /dev/null 2>&1
+
+# Configure Homer settings and files
+while [ ! -f homer/config.yml ]; do sleep 1; done
+docker stop homer > /dev/null 2>&1
+cp prep/config.yml homer/config.yml
+cp prep/mediaboxconfig.html homer/mediaboxconfig.html
+cp prep/portmap.html homer/portmap.html
+cp prep/icons/* homer/icons/
+sed '/^PIA/d' < .env > homer/env.txt # Pull PIA creds from the displayed .env file
+perl -i -pe "s/thishost/$thishost/g" homer/config.yml
+perl -i -pe "s/locip/$locip/g" homer/config.yml
+perl -i -pe "s/locip/$locip/g" homer/mediaboxconfig.html
+perl -i -pe "s/daemonun/$daemonun/g" homer/mediaboxconfig.html
+perl -i -pe "s/daemonpass/$daemonpass/g" homer/mediaboxconfig.html
+docker start homer > /dev/null 2>&1
+
+# Create Port Mapping file
+for i in $(docker ps --format {{.Names}} | sort); do printf "\n === $i Ports ===\n" && docker port "$i"; done > homer/ports.txt
 
 # Completion Message
 printf "Setup Complete - Open a browser and go to: \\n\\n"

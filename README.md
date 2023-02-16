@@ -5,8 +5,12 @@ Mediabox is an all Docker Container based media aggregator stack.
 Components include:
 
 *   [Deluge torrent client (using VPN)](http://deluge-torrent.org/)
+*   [Glances system monitoring](https://nicolargo.github.io/glances/)
+*   [Homer - Server Home Page](https://github.com/bastienwirtz/homer)
+*   [Homer Icons - Icons for Homer](https://github.com/NX211/homer-icons)
 *   [Jackett Tracker API and Proxy](https://github.com/Jackett/Jackett)
 *   [Lidarr Music collection manager](https://lidarr.audio/)
+*   [MeTube Web GUI for youtube-dl](https://github.com/alexta69/metube)
 *   [Muximux Web based HTPC manager](https://github.com/mescon/Muximux)
 *   [NetData System Monitoring](https://github.com/netdata/netdata)
 *   [NZBGet Usenet Downloader](https://nzbget.net/)  
@@ -97,9 +101,9 @@ Once the prerequisites are all taken care of you can move forward with using med
 
 6.  Add credentials needed for plex meta manager to `plex-meta-manager/config.yml` - see the [Docker Walkthrough](https://metamanager.wiki/en/latest/home/guides/docker.html) for more info.
 
-6.  Run the mediabox.sh script: `$ ./mediabox.sh`  (**See below for the script questions**)
+7.  Run the mediabox.sh script: `$ ./mediabox.sh`  (**See below for the script questions**)
 
-7.  To upgrade Mediabox at anytime, re-run the mediabox script: `$ ./mediabox.sh`
+8.  To upgrade Mediabox at anytime, re-run the mediabox script: `$ ./mediabox.sh`
 
 ### Please be prepared to supply the following details after you run Step 3 above
 
@@ -116,15 +120,11 @@ As the script runs you will be prompted for:
 
     Note: If you choose plexpass as your version you may optionally specify CLAIM_TOKEN - you can get your claim token by logging in at [plex.tv/claim](https://www.plex.tv/claim)
 
-3.  The "style" of Portainer to use
-    *   **auth** (will require a password, require a persistent volume map, and will need you to select the endpoint to manage)
-    *   **noauth** (will not require a password for access and will automatically connect to the local Docker sock endpoint)
-
-4.  Credentials for the Deluge daemon which needed for the CouchPotato container.
-    *   **username**
-    *   **password**
-
 Upon completion, the script will launch your mediabox containers.
+
+Portainer has been switched to the **CE** branch
+* **A Password** will now be required - the password can be set at initial login to Portainer.
+* **Initial Username** The initial username for Portainer is **admin**
 
 ### **Mediabox has been tested to work on Ubuntu 18.04 LTS / 20.04 LTS - Server**
 

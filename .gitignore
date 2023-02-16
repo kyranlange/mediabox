@@ -42,6 +42,10 @@ plex
 plex-meta-manager/logs
 plex-meta-manager/config.cache
 plex-meta-manager/*_missing.yml
+plex-meta-manager/*_report.yml
 speedtest
+homer
+glances
+metube
 
 *.env
