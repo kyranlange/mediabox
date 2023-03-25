@@ -362,8 +362,8 @@ services:
     # SPEEDTEST
     # ----------------------------------------
     speedtest:
-        image: henrywhitaker3/speedtest-tracker:dev
-        container_name: speedtest
+        image: ghcr.io/alexjustesen/speedtest-tracker:latest
+        container_name: speedtest-tracker
         restart: unless-stopped
         network_mode: "bridge"
         ports:
@@ -372,7 +372,6 @@ services:
             - TZ=${TZ}
             - PGID=${PGID}
             - PUID=${PUID}
-            - OOKLA_EULA_GDPR=true
         volumes:
             - './speedtest:/config'
 
