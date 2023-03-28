@@ -1,0 +1,147 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/en/configs/services
+
+- Downloading:
+    - Deluge:
+        icon: deluge.png
+        href: http://locip:8112
+        ping: http://locip:8112
+        description: Torrent Downloader
+        container: delugevpn
+        widget:
+            type: deluge
+            url: http://locip:8112
+            password: daemonpass
+    - Jackett:
+        icon: jackett.png
+        href: http://locip:9117
+        ping: http://locip:9117
+        description: Torrent Proxy
+        container: jackett
+        widget:
+            type: jackett
+            url: http://locip:9117
+    - Metube:
+        icon: "metube.png"
+        href: http://locip:8281
+        ping: http://locip:8281
+        description: Youtube Downloader
+        container: metube
+    - Sabnzbd:
+        icon: "sabnzbd.png"
+        href: http://locip:8080
+        ping: http://locip:8080
+        description: Usenet Downloader
+        container: sabnzbdvpn
+        widget: 
+            type: sabnzbd
+            url: http://locip:8080
+            key: 
+
+
+- Managing:
+    - LazyLibrarian:
+        icon: "lazylibrarian.png"
+        href: "http://locip:5299"
+        ping: "http://locip:5299"
+        description: Book Management
+        container: lazylibrarian
+    - Lidarr:
+        icon: "lidarr.png"
+        href: "http://locip:8686"
+        ping: "http://locip:8686"
+        description: Music Management
+        container: lidarr
+        widget:
+            type: lidarr
+            url: http://locip:8686
+            key: 
+    - Ombi:
+        icon: "ombi.png"
+        href: "http://locip:3579"
+        ping: "http://locip:3579"
+        description: Media Requests
+        container: ombi
+        widget:
+            type: ombi
+            url: http://locip:3579
+            key: 
+    - Radarr:
+        icon: "radarr.png"
+        href: "http://locip:7878"
+        ping: "http://locip:7878"
+        description: Movie Management
+        container: radarr
+        widget:
+            type: radarr
+            url: http://locip:7878
+            key: 
+    - Sonarr:
+        icon: "sonarr.png"
+        href: "http://locip:8989"
+        ping: "http://locip:8989"
+        description: TV Show Managment
+        container: sonarr
+        widget:
+            type: sonarr
+            url: http://locip:8989
+            key: 
+
+- Monitoring:
+    - Glances:
+        icon: "glances.png"
+        href: "http://locip:61208"
+        ping: "http://locip:61208"
+        description: Single Page Monitoring
+        container: glances
+    - Netdata:
+        icon: "netdata.png"
+        href: "http://locip:19999"
+        ping: "http://locip:19999"
+        description: Real Time Performance Monitoring
+        container: netdata
+    - Portainer:
+        icon: "portainer.png"
+        href: "http://locip:9000"
+        ping: "http://locip:9000"
+        description: Container Management
+        container: portainer
+        widget:
+            type: portainer
+            url: http://locip:9000
+            env: 1
+            key: 
+    - Speedtest:
+        icon: "speedtest-tracker"
+        href: "http://locip:8765"
+        ping: "http://locip:8765"
+        description: Internet Performance Tracking
+        container: speedtest-tracker
+        widget:
+            type: speedtest
+            url: http://locip:8765
+    - Tautulli:
+        icon: "tautulli.png"
+        href: "http://locip:8181"
+        ping: "http://locip:8181"
+        description: Plex Monitoring
+        container: tautulli
+        widget:
+            type: tautulli
+            url: http://locip:8181
+            key: 
+
+- Watching:
+    - Plex:
+        href: http://locip:32400/web
+        ping: http://locip:32400/web
+        description: Media Server
+        icon: "plex.png"
+        container: plex
+        widget:
+            type: plex
+            url: http://locip:32400
+            key: 
+
+            

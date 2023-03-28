@@ -1,0 +1,24 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/en/configs/bookmarks
+
+- Developer:
+    - Github:
+        - abbr: GH
+          icon: github.png
+          href: https://github.com/kyranlange/mediabox
+
+- Social:
+    - Reddit:
+        - abbr: RE
+          icon: reddit.png
+          href: https://reddit.com/
+    - Hacker News:
+        - abbr: HN
+          href: https://news.ycombinator.com/
+
+- Entertainment:
+    - YouTube:
+        - abbr: YT
+          icon: youtube.png
+          href: https://youtube.com/

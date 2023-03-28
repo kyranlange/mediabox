@@ -1,0 +1,12 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/en/configs/settings
+
+title: thisishost Media Box
+
+target: _blank # Possible options include _blank, _self, and _top
+
+quicklaunch:
+    searchDescriptions: true
+    hideInternetSearch: false
+    hideVisitURL: false
