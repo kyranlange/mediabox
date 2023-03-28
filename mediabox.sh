@@ -160,7 +160,8 @@ mkdir -p glances
 #mkdir -p filebrowser
 #mkdir -p flaresolverr
 mkdir -p historical/env_files
-mkdir -p homer
+mkdir -p homepage
+# mkdir -p homer
 mkdir -p jackett
 mkdir -p lidarr
 mkdir -p metube
@@ -306,23 +307,21 @@ echo "CPDAEMONUN=$daemonun"
 echo "CPDAEMONPASS=$daemonpass"
 } >> .env
 
-# Configure Homer settings and files
-while [ ! -f homer/config.yml ]; do sleep 1; done
-docker stop homer > /dev/null 2>&1
-cp prep/config.yml homer/config.yml
-cp prep/mediaboxconfig.html homer/mediaboxconfig.html
-cp prep/portmap.html homer/portmap.html
-cp prep/icons/* homer/icons/
-sed '/^PIA/d' < .env > homer/env.txt # Pull PIA creds from the displayed .env file
-perl -i -pe "s/thishost/$thishost/g" homer/config.yml
-perl -i -pe "s/locip/$locip/g" homer/config.yml
-perl -i -pe "s/locip/$locip/g" homer/mediaboxconfig.html
-perl -i -pe "s/daemonun/$daemonun/g" homer/mediaboxconfig.html
-perl -i -pe "s/daemonpass/$daemonpass/g" homer/mediaboxconfig.html
-docker start homer > /dev/null 2>&1
+# Configure Homepage settings and files
+while [ ! -f homepage/services.yaml ]; do sleep 1; done
+docker stop homepage > /dev/null 2>&1
+cp prep/services.yaml homepage/services.yaml
+cp prep/settings.yaml homepage/settings.yaml
+cp prep/docker.yaml homepage/docker.yaml
+cp prep/bookmarks.yaml homepage/bookmarks.yaml
+perl -i -pe "s/locip/$locip/g" homepage/services.yaml
+perl -i -pe "s/daemonpass/$daemonpass/g" homepage/services.yaml
+perl -i -pe "s/thishost/$thishost/g" homepage/settings.yaml
+# sed '/^PIA/d' < .env > homer/env.txt # Pull PIA creds from the displayed .env file
+docker start homepage > /dev/null 2>&1
 
 # Create Port Mapping file
-for i in $(docker ps --format {{.Names}} | sort); do printf "\n === $i Ports ===\n" && docker port "$i"; done > homer/ports.txt
+# for i in $(docker ps --format {{.Names}} | sort); do printf "\n === $i Ports ===\n" && docker port "$i"; done > homer/ports.txt
 
 # Completion Message
 printf "Setup Complete - Open a browser and go to: \\n\\n"

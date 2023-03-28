@@ -6,8 +6,7 @@ Components include:
 
 *   [Deluge torrent client (using VPN)](http://deluge-torrent.org/)
 *   [Glances system monitoring](https://nicolargo.github.io/glances/)
-*   [Homer - Server Home Page](https://github.com/bastienwirtz/homer)
-*   [Homer Icons - Icons for Homer](https://github.com/NX211/homer-icons)
+*   [Homepage - Server Dashboard](https://github.com/benphelps/homepage)
 *   [Jackett Tracker API and Proxy](https://github.com/Jackett/Jackett)
 *   [Lidarr Music collection manager](https://lidarr.audio/)
 *   [MeTube Web GUI for youtube-dl](https://github.com/alexta69/metube)
@@ -127,6 +126,16 @@ Portainer has been switched to the **CE** branch
 * **Initial Username** The initial username for Portainer is **admin**
 
 ### **Mediabox has been tested to work on Ubuntu 18.04 LTS / 20.04 LTS - Server**
+
+## Day One Stuff
+
+Once it is up and running, some configuration is required
+
+### Homepage
+
+To enable the widgets to work, some of them require an API key. To supply the API key, edit `homepage/services.yaml`. See https://gethomepage.dev/en/configs/service-widgets/ for information on how to get each of the API keys.
+
+## Thanks
 
 **Thanks go out to:**
 

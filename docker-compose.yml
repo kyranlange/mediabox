@@ -49,6 +49,22 @@ services:
             - '${DLDIR}:/data'
             - './delugevpn/config:/config'
             - '/etc/localtime:/etc/localtime:ro'
+    
+    # ----------------------------------------
+    # Docker Proxy
+    # ----------------------------------------
+    dockerproxy:
+        image: ghcr.io/tecnativa/docker-socket-proxy:latest
+        container_name: dockerproxy
+        restart: unless-stopped
+        network_mode: "bridge"
+        environment:
+            - CONTAINERS=1 # Allow access to viewing containers
+            - POST=0 # Disallow any POST operations (effectively read-only)
+        ports:
+            - 2375:2375
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
 
     # ----------------------------------------
     # GLANCES
@@ -71,20 +87,21 @@ services:
             - '/var/run/docker.sock:/var/run/docker.sock:ro'
 
     # ----------------------------------------
-    # HOMER
+    # HOMEPAGE
     # ----------------------------------------
-    homer:
-        image: b4bz/homer:latest
-        container_name: homer
+    homepage:
+        image: ghcr.io/benphelps/homepage:latest
+        container_name: homepage
         restart: unless-stopped
         network_mode: "bridge"
         ports:
-            - '${IP_ADDRESS}:80:8080'
+            - '${IP_ADDRESS}:80:3000'
         environment:
-            - UID=${PUID}
-            - GID=${PGID}
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
         volumes:
-            - './homer:/www/assets'
+            - './homepage:/app/config'
 
     # ----------------------------------------
     # JACKETT

@@ -47,5 +47,6 @@ speedtest
 homer
 glances
 metube
+homepage
 
 *.env
