@@ -23,7 +23,7 @@ Components include:
 *   [Speedtest - Tracker](https://github.com/henrywhitaker3/Speedtest-Tracker)
 *   [Tautulli Plex Media Server monitor](https://github.com/tautulli/tautulli)
 *   [LazyLibrarian Book collection manager](https://lazylibrarian.gitlab.io/)
-*   [Plex Meta manager](https://metamanager.wiki/en/latest/)
+*   [Kometa](https://kometa.wiki/)
 
 ## Prerequisites
 
@@ -98,7 +98,7 @@ Once the prerequisites are all taken care of you can move forward with using med
 
 5.  Change directory into mediabox: `$ cd /opt/mediabox/`
 
-6.  Add credentials needed for plex meta manager to `plex-meta-manager/config.yml` - see the [Docker Walkthrough](https://metamanager.wiki/en/latest/home/guides/docker.html) for more info.
+6.  Add credentials needed for Kometa to `plex-meta-manager/config.yml` - see the [Docker Walkthrough](https://kometa.wiki/en/latest/kometa/install/docker) for more info.
 
 7.  Run the mediabox.sh script: `$ ./mediabox.sh`  (**See below for the script questions**)
 

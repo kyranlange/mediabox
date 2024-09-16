@@ -19,7 +19,7 @@ collections:
   Popular:
     template: { name: Chart, num: 3 }
     tmdb_popular: 40
-    imdb_list:
+    imdb_search:
       url: https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries
       limit: 40
     summary: Popular Shows across the internet
@@ -28,7 +28,7 @@ collections:
     visible_shared: true
   Top Rated:
     template: { name: Chart, num: 4 }
-    imdb_list:
+    imdb_search:
       url: https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&num_votes=20000,&sort=user_rating,desc
       limit: 100
     tmdb_top_rated: 100
@@ -36,14 +36,14 @@ collections:
     visible_library: true
   Emmy Winners:
     template: { name: Chart, num: 5 }
-    imdb_list: https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&groups=emmy_winner
+    imdb_search: https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&groups=emmy_winner
     summary: Emmy Winning Shows
 
   Apple Original Series 2021-2025:
     smart_label: originally_available.desc
     sync_mode: sync
     sort_title: +2_APPLE
-    imdb_list:
+    imdb_search:
       url:   https://www.imdb.com/search/title/?title_type=feature,tv_movie,tv_series,tv_special,tv_miniseries,documentary,video,tv_short&release_date=2021-01-01,2025-12-31&genres=!animation&countries=us&languages=en&sort=release_date,desc&count=250&companies=co0546168
     summary: All Apple TV Original Series/Shows From 2021-2025
     url_poster: https://i.imgur.com/O9iWork.png
@@ -53,7 +53,7 @@ collections:
     smart_label: originally_available.desc
     sync_mode: sync
     sort_title: +2_AMAZON
-    imdb_list:
+    imdb_search:
       url:   https://www.imdb.com/search/title/?title_type=feature,tv_movie,tv_series,tv_special,tv_miniseries,documentary,video,tv_short&release_date=2021-01-01,2025-12-31&genres=!animation&countries=us&languages=en&sort=release_date,desc&count=250&companies=co0319272
     summary: All Apple TV Original Series/Shows From 2021-2025
     url_poster: https://i.imgur.com/nU3gqqB.png
@@ -63,7 +63,7 @@ collections:
     smart_label: originally_available.desc
     sync_mode: sync
     sort_title: +2_Netflix
-    imdb_list:
+    imdb_search:
       url: https://www.imdb.com/search/title/?title_type=feature,tv_movie,tv_series,tv_special,tv_miniseries,documentary,video,tv_short&release_date=2021-01-01,2025-12-31&genres=!animation&countries=us&languages=en&sort=release_date,desc&count=250&companies=co0144901
     summary: All Netflix Original Series/Shows From 2021-2025
     url_poster: https://i.imgur.com/7kiE1MU.png
@@ -73,7 +73,7 @@ collections:
     smart_label: originally_available.desc
     sync_mode: sync
     sort_title: +2_HBOMAX
-    imdb_list:
+    imdb_search:
       url: https://www.imdb.com/search/title/?title_type=feature,tv_movie,tv_series,tv_special,tv_miniseries,documentary,video,tv_short&release_date=2021-01-01,2025-12-31&genres=!animation&countries=us&languages=en&sort=release_date,desc&count=250&companies=co0754095
     summary: All HBO Max Series/Shows From 2021-2025
     url_poster: https://i.redd.it/zxdvw3tk3f151.jpg
@@ -83,7 +83,7 @@ collections:
     smart_label: originally_available.desc
     sync_mode: sync
     sort_title: +2_HULU
-    imdb_list:
+    imdb_search:
       url: https://www.imdb.com/search/title/?title_type=feature,tv_movie,tv_series,tv_special,tv_miniseries,documentary,video,tv_short&release_date=2021-01-01,2025-12-31&genres=!animation&countries=us&languages=en&sort=release_date,desc&count=250&companies=co0218858
     summary: All HULU Original Series/Shows From 2021-2025
     url_poster: https://plexcollectionposters.com/images/2019/05/26/Hulu6ddad752a5ce9bac.jpg

@@ -62,7 +62,7 @@ services:
             - CONTAINERS=1 # Allow access to viewing containers
             - POST=0 # Disallow any POST operations (effectively read-only)
         ports:
-            - 2375:2375
+            - 127.0.0.1:2375:2375
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
 
@@ -307,9 +307,9 @@ services:
     # ----------------------------------------
     # Plex Meta Manager
     # ----------------------------------------
-    plex-meta-manager:
-        image: meisnate12/plex-meta-manager
-        container_name: plex-meta-manager
+    kometa:
+        image: kometateam/kometa
+        container_name: kometa
         restart: unless-stopped
         network_mode: "bridge"
         volumes:
@@ -389,6 +389,8 @@ services:
             - TZ=${TZ}
             - PGID=${PGID}
             - PUID=${PUID}
+            - APP_KEY=${APP_KEY}
+
         volumes:
             - './speedtest:/config'
 
