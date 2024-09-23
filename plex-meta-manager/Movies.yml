@@ -31,7 +31,7 @@ collections:
     template: { name: Chart, num: 2 }
     tmdb_popular: 40
     imdb_search:
-      url: https://www.imdb.com/search/title/?title_type=feature,tv_movie,documentary,short
+      type: movie,tv_movie,short
       limit: 40
     summary: Popular Movies across the internet
     visible_library: true
@@ -54,14 +54,17 @@ collections:
   
   Top Rated:
     template: { name: Chart, num: 4 }
-    imdb_search: https://www.imdb.com/search/title/?groups=top_250&count=250/
+    imdb_chart: top_movies
     tmdb_top_rated: 250
     summary: Top Rated Movies across the internet
     url_poster: https://i.imgur.com/k4Oy7Xy.png
   
   Oscars:
     template: { name: Chart, num: 5 }
-    imdb_search: https://www.imdb.com/search/title/?title_type=feature,documentary&groups=oscar_winner
+    imdb_search:
+      event.winning: oscar
+      type: movie,short
+      limit: 300
     summary: Oscar Winning Movies
 
   Car Racing Movies:

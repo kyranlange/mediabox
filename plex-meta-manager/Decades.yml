@@ -4,24 +4,25 @@
 
 collections:
   Best of 1970s:
-    imdb_list:
-      url: https://www.imdb.com/search/title/?title_type=feature,short&release_date=1970-01-01,1979-12-31&num_votes=10000,&sort=user_rating,desc
+    imdb_search:
+      release.after: 1970-01-01
+      release.before: 1979-12-31
+      type: movie,short
+      votes.gte: 10000
+      sort_by: rating.desc
       limit: 150
     url_poster: https://i.imgur.com/GZcR8rJ.jpg
     url_background: https://wallpapercave.com/wp/wp4016022.jpg
     sort_title: +20_11970
     collection_mode: hide
     sync_mode: sync
-    collection_order: custom
 
   Best of 1980s:
     trakt_list:
      - https://trakt.tv/users/hdlists/lists/rottentomatoes-com-s-best-of-the-80s
-     - https://trakt.tv/users/zyrus/lists/80s-classics
     sort_title: +20_11980
     collection_mode: hide
     sync_mode: sync
-    collection_order: custom
     smart_label: critic_rating.desc
     summary: The Best Movies From The 80s
     url_poster: https://i.imgur.com/k9c4ieG.png
@@ -36,37 +37,45 @@ collections:
     url_background: https://i.imgur.com/g2yfzfx.jpg
     sort_title: +20_11990
     collection_mode: hide
-    collection_order: custom
 
   Best of 2000s:
-    imdb_list:
-      url: https://www.imdb.com/search/title/?title_type=feature,short&release_date=2000-01-01,2009-12-31&num_votes=10000,&sort=user_rating,desc
+    imdb_search:
+      release.after: 2000-01-01
+      release.before: 2009-12-31
+      type: movie,short
+      votes.gte: 10000
+      sort_by: rating.desc
       limit: 150
     url_poster: https://i.imgur.com/VquakZx.jpg
     url_background: https://wallpapercave.com/wp/wp4016022.jpg
     sort_title: +20_12000
     collection_mode: hide
     sync_mode: sync
-    collection_order: custom
 
   Best of 2010s:
-    imdb_list:
-      url: https://www.imdb.com/search/title/?title_type=feature,short&release_date=2010-01-01,2019-12-31&num_votes=10000,&sort=user_rating,desc
+    imdb_search:
+      release.after: 2010-01-01
+      release.before: 2019-12-31
+      type: movie,short
+      votes.gte: 10000
+      sort_by: rating.desc
       limit: 150
     url_poster: https://i.imgur.com/NEPK2kG.jpg
     url_background: https://wallpapercave.com/wp/wp4016022.jpg
     sort_title: +20_12010
     collection_mode: hide
     sync_mode: sync
-    collection_order: custom
 
   Best of 2020s:
-    imdb_list:
-      url: https://www.imdb.com/search/title/?title_type=feature,short&release_date=2020-01-01,2029-12-31&num_votes=1000,&sort=user_rating,desc
+    imdb_search:
+      release.after: 2020-01-01
+      release.before: 2029-12-31
+      type: movie,short
+      votes.gte: 10000
+      sort_by: rating.desc
       limit: 150
     url_poster: https://i.imgur.com/YWTD1gJ.jpg
     url_background: https://wallpapercave.com/wp/wp4016022.jpg
     sort_title: +20_12020
     collection_mode: hide
     sync_mode: sync
-    collection_order: custom

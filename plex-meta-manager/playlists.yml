@@ -12,11 +12,17 @@ playlists:
     libraries: Movies, TV Shows
     trakt_list: https://trakt.tv/users/donxy/lists/x-men-universe?sort=rank,asc
     url_poster: https://imgur.com/SDliKrF
+  Star Wars Chronological Order:
+    sync_to_users: all
+    sync_mode: sync
+    libraries: Movies, TV Shows
+    trakt_list: https://trakt.tv/users/xrayblaster/lists/star-wars-chronological-order?sort=rank,asc
+    url_poster: https://imgur.com/3mjh2IC
   Star Wars Movies Chronological Order:
     sync_to_users: all
     sync_mode: sync
     libraries: Movies, TV Shows
-    trakt_list: https://trakt.tv/users/draackje/lists/star-wars?sort=rank,asc
+    trakt_list: https://trakt.tv/users/aethorne/lists/star-wars-movies-only-chronological?sort=rank,asc
     url_poster: https://imgur.com/3mjh2IC
   Walt Disney Animated Feature Films:
     sync_to_users: all
@@ -39,7 +45,7 @@ playlists:
     sync_to_users: all
     sync_mode: sync
     libraries: Movies, TV Shows
-    trakt_list: https://trakt.tv/users/goldveia/lists/harry-potter?sort=rank,asc  
+    trakt_list: https://trakt.tv/users/elieser49ers/lists/harry-potter-franchise-chronological-order?sort=rank,asc
     url_poster: https://imgur.com/U9hMb2s
   Lord of the Rings Movies Chronological Order:
     sync_to_users: all
