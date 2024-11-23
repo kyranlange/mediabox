@@ -379,7 +379,7 @@ services:
     # SPEEDTEST
     # ----------------------------------------
     speedtest:
-        image: ghcr.io/alexjustesen/speedtest-tracker:latest
+        image: lscr.io/linuxserver/speedtest-tracker:latest
         container_name: speedtest-tracker
         restart: unless-stopped
         network_mode: "bridge"
