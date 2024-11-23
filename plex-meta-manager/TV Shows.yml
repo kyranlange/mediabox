@@ -41,6 +41,7 @@ collections:
     imdb_search: 
       type: tv_series,tv_mini_series
       event.winning: emmy
+      limit: 250
     summary: Emmy Winning Shows
 
   Apple Original Series:

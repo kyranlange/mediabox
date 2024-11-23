@@ -39,7 +39,7 @@ playlists:
     sync_to_users: all
     sync_mode: sync
     libraries: Movies, TV Shows
-    trakt_list: https://trakt.tv/users/mausk/lists/fast-furious?sort=rank,desc
+    trakt_list: https://trakt.tv/users/arachn0id/lists/fast-furious-the-fast-and-the-furious?sort=released,desc
     url_poster: https://imgur.com/xD4UaZr
   Harry Potter Movies Chronological Order:
     sync_to_users: all
@@ -63,5 +63,5 @@ playlists:
     sync_to_users: all
     sync_mode: sync
     libraries: Movies, TV Shows
-    trakt_list: https://trakt.tv/users/gapunk78/lists/hunger-games?sort=rank,asc
+    trakt_list: https://trakt.tv/users/totes30/lists/hunger-games?sort=released,asc
     url_poster: https://imgur.com/5zGSCgb
