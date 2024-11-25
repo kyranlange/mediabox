@@ -390,6 +390,8 @@ services:
             - PGID=${PGID}
             - PUID=${PUID}
             - APP_KEY=${APP_KEY}
+            - SPEEDTEST_SCHEDULE="0 * * * *"
+            - DISPLAY_TIMEZONE="Australia/Adelaide"
 
         volumes:
             - './speedtest:/config'
