@@ -204,7 +204,7 @@ services:
     # SABnzbd
     # ----------------------------------------
     arch-sabnzbdvpn:
-        image: binhex/arch-sabnzbdvpn:3.5.3-1-03
+        image: binhex/arch-sabnzbdvpn:latest
         container_name: sabnzbdvpn
         restart: unless-stopped
         network_mode: 'bridge'
