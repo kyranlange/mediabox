@@ -28,6 +28,8 @@ services:
             - '${IP_ADDRESS}:58946:58946'
         cap_add:
             - NET_ADMIN
+        devices:
+            - /dev/net/tun:/dev/net/tun
         environment:
             - VPN_ENABLED=yes
             - VPN_USER=${PIAUNAME}
@@ -213,6 +215,8 @@ services:
             - '${IP_ADDRESS}:8090:8090'
         cap_add:
             - NET_ADMIN
+        devices:
+            - /dev/net/tun:/dev/net/tun
         environment:
             - VPN_ENABLED=yes
             - VPN_USER=${PIAUNAME}
