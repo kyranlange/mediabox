@@ -102,6 +102,7 @@ services:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
+            - HOMEPAGE_ALLOWED_HOSTS=${IP_ADDRESS}
         volumes:
             - './homepage:/app/config'
 
