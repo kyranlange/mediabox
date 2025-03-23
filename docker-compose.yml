@@ -14,6 +14,21 @@ version: '3.5'
 services:
 
     # ----------------------------------------
+    # AudioBookShelf
+    # ----------------------------------------
+    audiobookshelf:
+        image: ghcr.io/advplyr/audiobookshelf:latest
+        restart: unless-stopped
+        ports:
+        - ${IP_ADDRESS}:13378:80
+        volumes:
+        - ${BOOKDIR}/Audio Books:/audiobooks
+        - ${PODCASTDIR}:/podcasts
+        - './audiobookshelf:/config'
+        - './audiobookshelf/metadata:/metadata'
+        - '/etc/localtime:/etc/localtime:ro'
+    
+    # ----------------------------------------
     # DELUGEVPN
     # ----------------------------------------
     arch-delugevpn:

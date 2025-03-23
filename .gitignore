@@ -48,5 +48,6 @@ homer
 glances
 metube
 homepage
+audiobookshelf
 
 *.env

@@ -4,11 +4,14 @@ Mediabox is an all Docker Container based media aggregator stack.
 
 Components include:
 
+*   [AudioBookShelf](https://www.audiobookshelf.org)
 *   [Deluge torrent client (using VPN)](http://deluge-torrent.org/)
 *   [Glances system monitoring](https://nicolargo.github.io/glances/)
 *   [Homepage - Server Dashboard](https://github.com/benphelps/homepage)
 *   [Jackett Tracker API and Proxy](https://github.com/Jackett/Jackett)
+*   [LazyLibrarian Book collection manager](https://lazylibrarian.gitlab.io/)
 *   [Lidarr Music collection manager](https://lidarr.audio/)
+*   [Kometa](https://kometa.wiki/)
 *   [MeTube Web GUI for youtube-dl](https://github.com/alexta69/metube)
 *   [Muximux Web based HTPC manager](https://github.com/mescon/Muximux)
 *   [NetData System Monitoring](https://github.com/netdata/netdata)
@@ -22,8 +25,6 @@ Components include:
 *   [Sonarr TV library manager](https://sonarr.tv/)
 *   [Speedtest - Tracker](https://github.com/henrywhitaker3/Speedtest-Tracker)
 *   [Tautulli Plex Media Server monitor](https://github.com/tautulli/tautulli)
-*   [LazyLibrarian Book collection manager](https://lazylibrarian.gitlab.io/)
-*   [Kometa](https://kometa.wiki/)
 
 ## Prerequisites
 
@@ -141,19 +142,12 @@ To enable the widgets to work, some of them require an API key. To supply the AP
 
 [@tom472](https://github.com/tom472/mediabox) - Started and continues to improve this project - the majority of this is from them.
 
-[@kspillane](https://github.com/kspillane) - Jumped right in and is providing helpful commits / PRs
-
-[@mnkhouri](https://github.com/mnkhouri) - provided a large amount of code clean-up.
-
-[@danipolo](https://github.com/danipolo) for the bridge-utils tip
-
 [binhex](https://github.com/binhex)
 
 [LinuxServer.io](https://github.com/linuxserver)
 
 [Docker](https://github.com/docker)
 
-[Portainer.io](https://github.com/portainer)
 
 ---
 

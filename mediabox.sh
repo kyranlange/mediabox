@@ -34,30 +34,30 @@ if [ -e .env ]; then
     else
         printf "No Docker-Compose Update needed.\\n\\n"
     fi
+    # Check for updates to the Mediabox repo
+    printf "Updating your local copy of Mediabox.\\n\\n"
+    printf "If this file 'mediabox.sh' is updated it will be re-run automatically.\\n\\n"
     # Stash any local changes to the base files
     git stash > /dev/null 2>&1
-    printf "Updating your local copy of Mediabox.\\n\\n"
     # Pull the latest files from Git
     git pull
     # Check to see if this script "mediabox.sh" was updated and restart it if necessary
-    changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
-    # Provide a message once the Git check/update  is complete
-    if [ -z "$changed_files" ]; then
-        printf "Your Mediabox is current - No Update needed.\\n\\n"
-    else
-        printf "Mediabox Files Update complete.\\n\\nThis script will restart if necessary\\n\\n"
+    if git diff-tree --no-commit-id --name-only -r HEAD | grep -q "mediabox.sh"; then
+        # Rename the .env file so this check fails if mediabox.sh needs to re-launch
+        mv .env 1.env
+        ./mediabox.sh
     fi
-    # Rename the .env file so this check fails if mediabox.sh needs to re-launch
-    mv .env 1.env
-    read -r -p "Press any key to continue... " -n1 -s
-    printf "\\n\\n"
-    # Run exec mediabox.sh if mediabox.sh changed
-    grep --q "$changed_files" mediabox.sh && echo "mediabox.sh restarting" && exec $0
+    if [ -z "$(git diff-tree --no-commit-id --name-only -r HEAD)" ]; then
+        printf "Your Mediabox is current - No Update needed.\\n\\n"
+        mv .env 1.env
+    fi
 fi
 
 # After update collect some current known variables
 if [ -e 1.env ]; then
-    # Grab the CouchPotato, NBZGet, & PIA usernames & passwords to reuse
+    # Give updated Message
+    printf "Docker Compose and Mediabox have been updated.\\n\\n"
+    # Grab the Deluge & PIA usernames & passwords to reuse
     daemonun=$(grep CPDAEMONUN 1.env | cut -d = -f2)
     daemonpass=$(grep CPDAEMONPASS 1.env | cut -d = -f2)
     piauname=$(grep PIAUNAME 1.env | cut -d = -f2)
@@ -68,9 +68,7 @@ if [ -e 1.env ]; then
     moviedirectory=$(grep MOVIEDIR 1.env | cut -d = -f2)
     musicdirectory=$(grep MUSICDIR 1.env | cut -d = -f2)
     bookdirectory=$(grep BOOKDIR 1.env | cut -d = -f2)
-    domain=$(grep DOMAIN 1.env | cut -d = -f2)
-    email=$(grep EMAIL 1.env | cut -d = -f2)
-    stackname=$(grep STACK_NAME 1.env | cut -d = -f2)
+    podcastdirectory=$(grep PODCASTDIR 1.env | cut -d = -f2)
     pmstag=$(grep PMSTAG 1.env | cut -d = -f2)
     pmstoken=$(grep PMSTOKEN 1.env | cut -d = -f2)
     vpnremote=$(grep VPN_REMOTE 1.env | cut -d = -f2)
@@ -82,6 +80,8 @@ if [ -e 1.env ]; then
     printf "Your MOVIE Directory is: %s \\n" "$moviedirectory"
     printf "Your MUSIC Directory is: %s \\n" "$musicdirectory"
     printf "Your BOOK Directory is: %s \\n" "$bookdirectory"
+    printf "Your AUDIO BOOK Directory is: %s \\n" "$bookdirectory/Audio Books"
+    printf "Your PODCAST Directory is: %s \\n" "$podcastdirectory"
     printf "\\n\\n"
     read  -r -p "Are these directiores still correct? (y/n) " diranswer "$(echo \n)"
     printf "\\n\\n"
@@ -144,6 +144,7 @@ read -r -p "Where do you store your MISC media? (Please use full path - /path/to
 read -r -p "Where do you store your MOVIE media? (Please use full path - /path/to/movies ): " moviedirectory
 read -r -p "Where do you store your MUSIC media? (Please use full path - /path/to/music ): " musicdirectory
 read -r -p "Where do you store your BOOK media? (Please use full path - /path/to/books ): " bookdirectory
+read -r -p "Where do you store your PODCAST media? (Please use full path - /path/to/podcasts ): " podcastdirectory
 fi
 if [ "$diranswer" == "n" ]; then
 read -r -p "Where do you store your DOWNLOADS? (Please use full path - /path/to/downloads ): " dldirectory
@@ -152,8 +153,45 @@ read -r -p "Where do you store your MISC media? (Please use full path - /path/to
 read -r -p "Where do you store your MOVIE media? (Please use full path - /path/to/movies ): " moviedirectory
 read -r -p "Where do you store your MUSIC media? (Please use full path - /path/to/music ): " musicdirectory
 read -r -p "Where do you store your BOOK media? (Please use full path - /path/to/books ): " bookdirectory
+read -r -p "Where do you store your PODCAST media? (Please use full path - /path/to/podcasts ): " podcastdirectory
 fi
 
+# Create the directory structure
+if [ -z "$dldirectory" ]; then
+    mkdir -p content/completed
+    mkdir -p content/incomplete
+    dldirectory="$PWD/content"
+else
+  mkdir -p "$dldirectory"/completed
+  mkdir -p "$dldirectory"/incomplete
+fi
+if [ -z "$tvdirectory" ]; then
+    mkdir -p content/tv
+    tvdirectory="$PWD/content/tv"
+fi
+if [ -z "$miscdirectory" ]; then
+    mkdir -p content/misc
+    miscdirectory="$PWD/content/misc"
+fi
+if [ -z "$moviedirectory" ]; then
+    mkdir -p content/movies
+    moviedirectory="$PWD/content/movies"
+fi
+if [ -z "$musicdirectory" ]; then
+    mkdir -p content/music
+    musicdirectory="$PWD/content/music"
+fi
+if [ -z "$bookdirectory" ]; then
+    mkdir -p content/books/audiobooks
+    bookdirectory="$PWD/content/books"
+fi
+if [ -z "$podcastdirectory" ]; then
+    mkdir -p content/podcasts
+    podcastdirectory="$PWD/content/podcasts"
+fi
+
+
+mkdir -p audiobookshelf/metadata
 mkdir -p delugevpn
 mkdir -p delugevpn/config/openvpn
 mkdir -p glances
@@ -161,7 +199,6 @@ mkdir -p glances
 #mkdir -p flaresolverr
 mkdir -p historical/env_files
 mkdir -p homepage
-# mkdir -p homer
 mkdir -p jackett
 mkdir -p lidarr
 mkdir -p metube
@@ -251,6 +288,7 @@ echo "MISCDIR=$miscdirectory"
 echo "MOVIEDIR=$moviedirectory"
 echo "MUSICDIR=$musicdirectory"
 echo "BOOKDIR=$bookdirectory"
+echo "PODCASTDIR=$podcastdirectory"
 echo "PIAUNAME=$piauname"
 echo "PIAPASS=$piapass"
 echo "CIDR_ADDRESS=$lannet"
@@ -320,10 +358,7 @@ perl -i -pe "s/thishost/$thishost/g" homepage/settings.yaml
 # sed '/^PIA/d' < .env > homer/env.txt # Pull PIA creds from the displayed .env file
 docker start homepage > /dev/null 2>&1
 
-# Create Port Mapping file
-# for i in $(docker ps --format {{.Names}} | sort); do printf "\n === $i Ports ===\n" && docker port "$i"; done > homer/ports.txt
-
 # Completion Message
 printf "Setup Complete - Open a browser and go to: \\n\\n"
 printf "http://%s \\nOR http://%s If you have appropriate DNS configured.\\n\\n" "$locip" "$thishost"
-printf "Start with the MEDIABOX Icon for settings and configuration info.\\n"
+exit
