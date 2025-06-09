@@ -128,7 +128,7 @@ collections:
     summary: A.V. Club's Best films of 2012
     smart_label: audience_rating.desc
   Best of 2013:
-    trakt_list: https://trakt.tv/users/pdiddy973/lists/rotten-tomatoes-best-of-2013
+    trakt_list: https://trakt.tv/users/iandick/lists/rotten-tomatoes-best-of-2013
     sort_title: +2_Best of 2013
     sync_mode: sync
     summary: Rotten Tomatoes Best Movies of 2013

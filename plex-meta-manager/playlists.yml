@@ -65,3 +65,11 @@ playlists:
     libraries: Movies, TV Shows
     trakt_list: https://trakt.tv/users/totes30/lists/hunger-games?sort=released,asc
     url_poster: https://imgur.com/5zGSCgb
+  Top Gear/Grand Tour Specials:
+    sync_to_users: all
+    sync_mode: sync
+    libraries: Movies, TV Shows
+    trakt_list: 
+      - https://trakt.tv/users/neo_x_007/lists/top-gear-grand-tour-all-specials?sort=released,desc
+      - https://trakt.tv/users/phillipjberglund/lists/top-gear-specials?sort=released,asc
+    url_poster: https://walter-r2.trakt.tv/images/shows/000/108/999/posters/thumb/2faec0450c.jpg.webp
