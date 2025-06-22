@@ -2,17 +2,17 @@
 
 libraries:                                      # This is called out once within the config.yml file                                       
   Movies:                                       # Each library must match the Plex library name
-    metadata_path:
-      - file: config/Movies.yml
-      - file: config/Holidays.yml
-      - file: config/Decades.yml
-      - file: config/Movies_series.yml
-      - git: meisnate12/Movies
+    collection_files:
+    - file: config/Movies.yml
+    - file: config/Holidays.yml
+    - file: config/Decades.yml
+    - file: config/Movies_series.yml
+    - git: meisnate12/Movies
   TV Shows:
-    metadata_path:
-      - file: config/TV Shows.yml
+    collection_files:
+    - file: config/TV Shows.yml
 playlist_files:
-  - file: config/playlists.yml
+- file: config/playlists.yml
 settings:
   cache: true
   cache_expiration: 60
@@ -46,27 +46,43 @@ settings:
   verify_ssl: true
   custom_repo:
   playlist_sync_to_users: all
+  prioritize_assets: false
+  playlist_report: true
+  check_nightly: false
+  show_unconfigured: true
+  playlist_exclude_users:
+  run_order:
+  - operations
+  - metadata
+  - collections
+  - overlays
+  overlay_artwork_filetype: jpg
+  overlay_artwork_quality:
+  show_unfiltered: false
 webhooks:                                       # Can be individually specified per library as well
   error:
   version:
   run_start:
   run_end:
   changes:
+  delete:
 plex:                                           # Can be individually specified per library as well; REQUIRED for the script to run
   url: http://192.168.1.10:32400
-  token: <token>
+  token: 
   timeout: 60
   clean_bundles: false
   empty_trash: false
   optimize: false
+  db_cache:
+  verify_ssl:
 tmdb:                                           # REQUIRED for the script to run
-  apikey: <api-key>
+  apikey: 
   language: en
   cache_expiration: 60
   region:
 tautulli:                                       # Can be individually specified per library as well
   url: http://192.168.1.10:8181
-  apikey: <api-key>
+  apikey: 
 omdb:
   apikey:
   cache_expiration: 60
@@ -79,9 +95,10 @@ anidb:                                          # Not required for AniDB builder
   username:
   password:
   language: en
+  client:
 radarr:                                         # Can be individually specified per library as well
   url: http://192.168.1.10:7878
-  token: <token>
+  token: 
   add_missing: false
   add_existing: false
   root_folder_path: /movies
@@ -92,9 +109,12 @@ radarr:                                         # Can be individually specified 
   search: false
   radarr_path:
   plex_path:
+  upgrade_existing: false
+  ignore_cache: false
+  monitor_existing: false
 sonarr:                                         # Can be individually specified per library as well
   url: http://192.168.1.10:8989
-  token: <token>
+  token: 
   add_missing: false
   add_existing: false
   root_folder_path: /tv
@@ -108,17 +128,19 @@ sonarr:                                         # Can be individually specified 
   cutoff_search: false
   sonarr_path:
   plex_path:
+  upgrade_existing: false
+  ignore_cache: false
+  monitor_existing: false
 trakt:
-  client_id: <client-id>
-  client_secret: <client-secret>
+  client_id: 
+  client_secret: 
   pin:
   authorization:
-    # Autofilled by script
     access_token: 
-    token_type: 
+    token_type: Bearer
     expires_in: 
     refresh_token: 
-    scope: 
+    scope: public
     created_at: 
 mal:
   client_id:
