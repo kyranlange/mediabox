@@ -2,8 +2,8 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/en/configs/docker/
 
-docker:
-  host: dockerproxy
+my-docker:
+  host: locip
   port: 2375
 
 # my-docker:

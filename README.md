@@ -28,7 +28,7 @@ Components include:
 
 ## Prerequisites
 
-*   [Ubuntu 18.04 LTS](https://www.ubuntu.com/)
+*   [Ubuntu 20.04 LTS](https://www.ubuntu.com/)
 *   [VPN account from Private internet Access](https://www.privateinternetaccess.com/) (Please see [binhex's Github Repo](https://github.com/binhex/arch-delugevpn) if you want to use a different VPN)
 *   [Git](https://git-scm.com/)
 *   [Docker](https://www.docker.com/)

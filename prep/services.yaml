@@ -8,6 +8,7 @@
         href: http://locip:8112
         ping: http://locip:8112
         description: Torrent Downloader
+        server: my-docker
         container: delugevpn
         widget:
             type: deluge
@@ -18,6 +19,7 @@
         href: http://locip:9117
         ping: http://locip:9117
         description: Torrent Proxy
+        server: my-docker
         container: jackett
         widget:
             type: jackett
@@ -27,12 +29,14 @@
         href: http://locip:8281
         ping: http://locip:8281
         description: Youtube Downloader
+        server: my-docker
         container: metube
     - Sabnzbd:
         icon: "sabnzbd.png"
         href: http://locip:8080
         ping: http://locip:8080
         description: Usenet Downloader
+        server: my-docker
         container: sabnzbdvpn
         widget: 
             type: sabnzbd
@@ -46,12 +50,14 @@
         href: "http://locip:5299"
         ping: "http://locip:5299"
         description: Book Management
+        server: my-docker
         container: lazylibrarian
     - Lidarr:
         icon: "lidarr.png"
         href: "http://locip:8686"
         ping: "http://locip:8686"
         description: Music Management
+        server: my-docker
         container: lidarr
         widget:
             type: lidarr
@@ -62,6 +68,7 @@
         href: "http://locip:3579"
         ping: "http://locip:3579"
         description: Media Requests
+        server: my-docker
         container: ombi
         widget:
             type: ombi
@@ -72,6 +79,7 @@
         href: "http://locip:7878"
         ping: "http://locip:7878"
         description: Movie Management
+        server: my-docker
         container: radarr
         widget:
             type: radarr
@@ -82,6 +90,7 @@
         href: "http://locip:8989"
         ping: "http://locip:8989"
         description: TV Show Managment
+        server: my-docker
         container: sonarr
         widget:
             type: sonarr
@@ -94,18 +103,21 @@
         href: "http://locip:61208"
         ping: "http://locip:61208"
         description: Single Page Monitoring
+        server: my-docker
         container: glances
     - Netdata:
         icon: "netdata.png"
         href: "http://locip:19999"
         ping: "http://locip:19999"
         description: Real Time Performance Monitoring
+        server: my-docker
         container: netdata
     - Portainer:
         icon: "portainer.png"
         href: "http://locip:9000"
         ping: "http://locip:9000"
         description: Container Management
+        server: my-docker
         container: portainer
         widget:
             type: portainer
@@ -117,6 +129,7 @@
         href: "http://locip:8765"
         ping: "http://locip:8765"
         description: Internet Performance Tracking
+        server: my-docker
         container: speedtest-tracker
         widget:
             type: speedtest
@@ -126,6 +139,7 @@
         href: "http://locip:8181"
         ping: "http://locip:8181"
         description: Plex Monitoring
+        server: my-docker
         container: tautulli
         widget:
             type: tautulli
@@ -138,10 +152,21 @@
         ping: http://locip:32400/web
         description: Media Server
         icon: "plex.png"
+        server: my-docker
         container: plex
         widget:
             type: plex
             url: http://locip:32400
             key: 
-
+    - AudioBookShelf:
+        href: http://locip:13378
+        siteMonitor: http://locip:13378
+        description: Audio Book Server
+        icon: "audiobookshelf.png"
+        server: my-docker
+        container: audiobookshelf
+        widget:
+            type: audiobookshelf
+            url: http://locip:13378
+            key: 
             

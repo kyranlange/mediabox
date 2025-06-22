@@ -353,6 +353,7 @@ cp prep/settings.yaml homepage/settings.yaml
 cp prep/docker.yaml homepage/docker.yaml
 cp prep/bookmarks.yaml homepage/bookmarks.yaml
 perl -i -pe "s/locip/$locip/g" homepage/services.yaml
+perl -i -pe "s/locip/$locip/g" homepage/docker.yaml
 perl -i -pe "s/daemonpass/$daemonpass/g" homepage/services.yaml
 perl -i -pe "s/thishost/$thishost/g" homepage/settings.yaml
 # sed '/^PIA/d' < .env > homer/env.txt # Pull PIA creds from the displayed .env file
