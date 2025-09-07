@@ -158,6 +158,23 @@
             type: plex
             url: http://locip:32400
             key: 
+    - Jellyfin:
+        href: http://locip:8096/web
+        siteMonitor: http://locip:8096/web
+        description: Media Server
+        icon: "jellyfin.png"
+        server: my-docker
+        container: jellyfin
+        widget:
+            type: jellyfin
+            url: http://locip:8096
+            key: 
+            enableBlocks: true # optional, defaults to false
+            enableNowPlaying: true # optional, defaults to true
+            enableUser: true # optional, defaults to false
+            enableMediaControl: false # optional, defaults to true
+            showEpisodeNumber: true # optional, defaults to false
+            expandOneStreamToTwoRows: false # optional, defaults to true
     - AudioBookShelf:
         href: http://locip:13378
         siteMonitor: http://locip:13378

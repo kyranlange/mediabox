@@ -6,9 +6,11 @@ Components include:
 
 *   [AudioBookShelf](https://www.audiobookshelf.org)
 *   [Deluge torrent client (using VPN)](http://deluge-torrent.org/)
+*   [Flaresolverr proxy server to bypass Cloudflare protection (Used with Jackett)](https://github.com/FlareSolverr/FlareSolverr)
 *   [Glances system monitoring](https://nicolargo.github.io/glances/)
 *   [Homepage - Server Dashboard](https://github.com/benphelps/homepage)
 *   [Jackett Tracker API and Proxy](https://github.com/Jackett/Jackett)
+*   [Jellyfin Free Software Media System](https://github.com/jellyfin/jellyfin)
 *   [LazyLibrarian Book collection manager](https://lazylibrarian.gitlab.io/)
 *   [Lidarr Music collection manager](https://lidarr.audio/)
 *   [Kometa](https://kometa.wiki/)

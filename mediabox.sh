@@ -105,6 +105,10 @@ PUID=$(id -u "$localuname")
 PGID=$(id -g "$localuname")
 # Get Docker Group Number
 DOCKERGRP=$(grep docker /etc/group | cut -d ':' -f 3)
+# Get Render Group Number
+RENDERGRP=$(getent group render | cut -d: -f3)
+# Get Video Group Number
+VIDEOGRP=$(getent group render | cut -d: -f3)
 # Get Hostname
 thishost=$(hostname)
 # Get IP Address
@@ -196,10 +200,11 @@ mkdir -p delugevpn
 mkdir -p delugevpn/config/openvpn
 mkdir -p glances
 #mkdir -p filebrowser
-#mkdir -p flaresolverr
+mkdir -p flaresolverr
 mkdir -p historical/env_files
 mkdir -p homepage
 mkdir -p jackett
+mkdir -p jellyfin
 mkdir -p lidarr
 mkdir -p metube
 mkdir -p sabnzbdvpn/config/openvpn
@@ -281,6 +286,8 @@ echo "IP_ADDRESS=$locip"
 echo "PUID=$PUID"
 echo "PGID=$PGID"
 echo "DOCKERGRP=$DOCKERGRP"
+echo "RENDERGRP=$RENDERGRP"
+echo "VIDEOGRP=$VIDEOGRP"
 echo "PWD=$PWD"
 echo "DLDIR=$dldirectory"
 echo "TVDIR=$tvdirectory"
@@ -337,6 +344,12 @@ rm delugevpn/config/core.conf~ > /dev/null 2>&1
 perl -i -pe 's/"allow_remote": false,/"allow_remote": true,/g'  delugevpn/config/core.conf
 perl -i -pe 's/"move_completed": false,/"move_completed": true,/g'  delugevpn/config/core.conf
 docker start delugevpn > /dev/null 2>&1
+
+# Configure FlareSolverr URL for Jackett
+while [ ! -f jackett/Jackett/ServerConfig.json ]; do sleep 1; done
+docker stop jackett > /dev/null 2>&1
+perl -i -pe 's/"FlareSolverrUrl": ".*",/"FlareSolverrUrl": "http:\/\/'"$locip"':8191",/g' jackett/Jackett/ServerConfig.json
+docker start jackett > /dev/null 2>&1
 
 # Push the Deluge Daemon Access info the to Auth file and to the .env file
 echo "$daemonun":"$daemonpass":10 >> ./delugevpn/config/auth
