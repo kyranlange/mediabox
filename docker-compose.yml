@@ -234,6 +234,8 @@ services:
         network_mode: "bridge"
         ports:
             - '${IP_ADDRESS}:8281:8081'
+        environment:
+            - UMASK=002
         volumes:
             - '${MISCDIR}:/downloads'
             - './metube:/state'
