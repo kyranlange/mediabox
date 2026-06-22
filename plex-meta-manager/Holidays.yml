@@ -61,7 +61,7 @@ collections:
   Christmas Movies:
     template:
       name: Holiday
-      start_date: 12/01
+      start_date: 11/07
       end_date: 12/31
     trakt_list:
       - https://trakt.tv/users/movistapp/lists/christmas-movies
