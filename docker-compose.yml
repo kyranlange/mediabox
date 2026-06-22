@@ -59,7 +59,7 @@ services:
             - ENABLE_PRIVOXY=yes
             - STRICT_PORT_FORWARD=yes
             - LAN_NETWORK=${CIDR_ADDRESS}
-            - NAME_SERVERS=209.222.18.222,84.200.69.80,37.235.1.174,1.1.1.1,209.222.18.218,37.235.1.177,84.200.70.40,1.0.0.1
+            - NAME_SERVERS=10.0.0.242,1.1.1.1,84.200.69.80,10.0.0.243,1.0.0.1,84.200.70.40
             - DEBUG=false
             - PUID=${PUID}
             - PGID=${PGID}
@@ -106,7 +106,7 @@ services:
     # GLANCES
     # ----------------------------------------
     glances:
-        image: nicolargo/glances:latest-alpine
+        image: nicolargo/glances:latest
         container_name: glances
         restart: unless-stopped
         network_mode: "bridge"
@@ -292,7 +292,7 @@ services:
             - ENABLE_PRIVOXY=no
             - STRICT_PORT_FORWARD=yes
             - LAN_NETWORK=${CIDR_ADDRESS}
-            - NAME_SERVERS=209.222.18.222,84.200.69.80,37.235.1.174,1.1.1.1,209.222.18.218,37.235.1.177,84.200.70.40,1.0.0.1
+            - NAME_SERVERS=10.0.0.242,1.1.1.1,84.200.69.80,10.0.0.243,1.0.0.1,84.200.70.40
             - DEBUG=false
             - PUID=${PUID}
             - PGID=${PGID}
