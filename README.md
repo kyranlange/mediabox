@@ -19,7 +19,7 @@ Components include:
 *   [MeTube Web GUI for youtube-dl](https://github.com/alexta69/metube)
 *   [NetData System Monitoring](https://github.com/netdata/netdata)
 *   [Ombi media assistant](http://www.ombi.io/)
-*   [Ouroboros Automatic container updater](https://github.com/pyouroboros/ouroboros)
+*   [WUD - What's Up Docker](https://getwud.app/)
 *   [Plex media server](https://www.plex.tv/)
 *   [Portainer Docker Container manager](https://portainer.io/)
 *   [Radarr movie library manager](https://radarr.video/)
@@ -44,11 +44,11 @@ Components include:
 
 Follow Docker's official instructions to install [Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/) and the [Docker Compose plugin](https://docs.docker.com/compose/install/linux/). If Docker is already installed, follow Docker's instructions for resolving conflicting packages instead of removing packages blindly.
 
-Install Git and curl, then verify the Compose plugin:
+Install Git, curl, and OpenSSL, then verify the Compose plugin:
 
 ```bash
 sudo apt update
-sudo apt install curl git
+sudo apt install curl git openssl
 docker compose version
 ```
 
@@ -125,6 +125,10 @@ Once it is up and running, some configuration is required
 ### Homepage
 
 Some Homepage widgets require API keys. Add them to `prep/services.yaml`; the setup script copies this template to `homepage/services.yaml` each time it runs. See the [Homepage widget documentation](https://gethomepage.dev/widgets/) for details.
+
+### WUD
+
+WUD checks container images every six hours and automatically updates Compose-managed containers. It backs up changes to `docker-compose.yml.back` and removes unused old images after successful updates. Open the dashboard at `http://<IP_ADDRESS>:3000`; the initial username is `admin`, and the generated password is stored in `wud/.env`. Keep the dashboard on a trusted network.
 
 ### Kometa Quickstart
 

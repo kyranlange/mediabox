@@ -198,6 +198,8 @@ mkdir -p historical/env_files
 mkdir -p homepage
 mkdir -p jackett
 mkdir -p jellyfin
+mkdir -p kometa-quickstart
+mkdir -p lazylibrarian
 mkdir -p lidarr
 mkdir -p metube
 mkdir -p sabnzbdvpn/config/openvpn
@@ -209,12 +211,29 @@ mkdir -p portainer
 mkdir -p radarr
 #mkdir -p requestrr
 mkdir -p sonarr
-mkdir -p lazylibrarian
 mkdir -p speedtest
 mkdir -p tautulli
-mkdir -p kometa-quickstart
+mkdir -p wud/store
 #mkdir -p tdarr
 #mkdir -p tubesync
+
+if [ ! -f wud/.env ]; then
+    if ! command -v openssl > /dev/null 2>&1; then
+        echo "OpenSSL is required to generate WUD credentials."
+        exit 1
+    fi
+    wud_admin_password=$(openssl rand -hex 32) || exit 1
+    wud_session_secret=$(openssl rand -hex 32) || exit 1
+    printf 'WUD_AUTH_ADMIN_USER=admin\nWUD_AUTH_ADMIN_PASSWORD=%s\nWUD_AUTH_SESSION_SECRET=%s\n' \
+        "$wud_admin_password" "$wud_session_secret" > wud/.env || {
+            echo "Unable to write WUD credentials to wud/.env."
+            exit 1
+        }
+fi
+if ! chmod 600 wud/.env; then
+    echo "Unable to secure the WUD credentials file wud/.env."
+    exit 1
+fi
 
 if [ -z "$vpnremote" ]; then
     # Create menu - Select and Move the PIA VPN files

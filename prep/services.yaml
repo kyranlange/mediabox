@@ -105,6 +105,13 @@
         container: kometa-quickstart
 
 - Monitoring:
+    - WUD:
+        icon: "wud.png"
+        href: http://locip:3000
+        ping: http://locip:3000
+        description: Docker Image Updates
+        server: my-docker
+        container: wud
     - Glances:
         icon: "glances.png"
         href: "http://locip:61208"

@@ -51,5 +51,7 @@ metube
 homepage
 audiobookshelf
 kometa-quickstart
+wud
+docker-compose.yml.back
 
 *.env
