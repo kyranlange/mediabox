@@ -29,14 +29,14 @@ collections:
       - https://www.imdb.com/list/ls000094398/
       - https://www.imdb.com/list/ls057783436/
       - https://www.imdb.com/list/ls064427905/
-    url_poster: https://imgur.com/V9jJXux
+    url_poster: https://i.imgur.com/V9jJXux.png
   St. Patrick's Day Movies:
     template:
       name: Holiday
       start_date: 03/01
       end_date: 03/18
     imdb_list: https://www.imdb.com/list/ls063934595/
-    url_poster: https://imgur.com/wt5RImO
+    url_poster: https://i.imgur.com/wt5RImO.png
   Halloween Movies:
     template: 
       name: Holiday
@@ -57,7 +57,7 @@ collections:
       - 8091     # Alien Collection
     tmdb_movie:
       - 23437    # A Nightmare on Elm Street (2010)
-    url_poster: https://imgur.com/nyxHv2x
+    url_poster: https://i.imgur.com/nyxHv2x.png
   Christmas Movies:
     template:
       name: Holiday
@@ -75,11 +75,11 @@ collections:
       - https://www.imdb.com/list/ls027886673/
       - https://www.imdb.com/list/ls097998599/
       - https://www.imdb.com/list/ls000096828/
-    url_poster: https://imgur.com/QwpFuM9
+    url_poster: https://i.imgur.com/QwpFuM9.png
   New Year's Day Movies:
     template:
       name: Holiday
       start_date: 12/26
       end_date: 01/04
     imdb_list: https://www.imdb.com/list/ls066838460/
-    url_poster: https://imgur.com/Wy7NUL8
+    url_poster: https://i.imgur.com/Wy7NUL8.png

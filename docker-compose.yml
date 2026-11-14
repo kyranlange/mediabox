@@ -139,6 +139,7 @@ services:
             - HOMEPAGE_ALLOWED_HOSTS=${IP_ADDRESS}
         volumes:
             - './homepage:/app/config'
+            - './prep/icons:/app/public/icons:ro'
 
     # ----------------------------------------
     # JACKETT
@@ -161,26 +162,26 @@ services:
     # ----------------------------------------
     # JELLYFIN
     # ----------------------------------------
-    jellyfin:
-        image: jellyfin/jellyfin:latest
-        container_name: jellyfin
-        restart: unless-stopped
-        network_mode: "bridge"
-        user: "${PUID}:${PGID}"
-        group_add:
-            - "${RENDERGRP}"
-            - "${VIDEOGRP}"
-        ports:
-            - '${IP_ADDRESS}:8096:8096'
-        volumes:
-            - './jellyfin:/config'
-            - '${MOVIEDIR}:/media/movies'
-            - '${MUSICDIR}:/media/music'
-            - '${TVDIR}:/media/tv'
-            - '${BOOKDIR}:/media/books'
-            - '/etc/localtime:/etc/localtime:ro'
-        devices:
-            - /dev/dri/renderD128:/dev/dri/renderD128
+    # jellyfin:
+    #     image: jellyfin/jellyfin:latest
+    #     container_name: jellyfin
+    #     restart: unless-stopped
+    #     network_mode: "bridge"
+    #     user: "${PUID}:${PGID}"
+    #     group_add:
+    #         - "${RENDERGRP}"
+    #         - "${VIDEOGRP}"
+    #     ports:
+    #         - '${IP_ADDRESS}:8096:8096'
+    #     volumes:
+    #         - './jellyfin:/config'
+    #         - '${MOVIEDIR}:/media/movies'
+    #         - '${MUSICDIR}:/media/music'
+    #         - '${TVDIR}:/media/tv'
+    #         - '${BOOKDIR}:/media/books'
+    #         - '/etc/localtime:/etc/localtime:ro'
+    #     devices:
+    #         - /dev/dri/renderD128:/dev/dri/renderD128
 
     # ----------------------------------------
     # LazyLibrarian
@@ -377,11 +378,29 @@ services:
         container_name: kometa
         restart: unless-stopped
         network_mode: "bridge"
+        user: "${PUID}:${PGID}"
         volumes:
             - './plex-meta-manager:/config:rw'
             - '/etc/localtime:/etc/localtime:ro'
         depends_on:
             - plex
+
+    # ----------------------------------------
+    # Kometa Quickstart
+    # ----------------------------------------
+    kometa-quickstart:
+        image: kometateam/quickstart:latest
+        container_name: kometa-quickstart
+        restart: unless-stopped
+        network_mode: "bridge"
+        environment:
+            - QS_PORT=7171
+        ports:
+            - '${IP_ADDRESS}:7171:7171'
+        volumes:
+            - './kometa-quickstart:/config:rw'
+            - './plex-meta-manager:/kometa-config:rw'
+            - '/etc/localtime:/etc/localtime:ro'
 
     # ----------------------------------------
     # PORTAINER

@@ -96,6 +96,13 @@
             type: sonarr
             url: http://locip:8989
             key: 
+    - Kometa Quickstart:
+        icon: /icons/kometa-quickstart.webp
+        href: "http://locip:7171"
+        ping: "http://locip:7171/kometa-status"
+        description: Kometa Configuration
+        server: my-docker
+        container: kometa-quickstart
 
 - Monitoring:
     - Glances:

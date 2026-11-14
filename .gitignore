@@ -50,5 +50,6 @@ glances
 metube
 homepage
 audiobookshelf
+kometa-quickstart
 
 *.env

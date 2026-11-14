@@ -17,23 +17,16 @@ if ! id -u $localuname > /dev/null 2>&1; then
     exit 1
 fi
 
+# Check that the Docker Compose plugin is installed
+if ! docker compose version; then
+    echo "The Docker Compose plugin is required. Install it with your package manager and try again."
+    exit 1
+fi
+
 # set -x
 
 # See if we need to check GIT for updates
 if [ -e .env ]; then
-    # Check for Updated Docker-Compose
-    printf "Checking for update to Docker-Compose (If needed - You will be prompted for SUDO credentials).\\n\\n"
-    onlinever=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep "tag_name" | cut -d ":" -f2 | sed 's/"//g' | sed 's/,//g' | sed 's/ //g')
-    printf "Current online version is: %s \\n" "$onlinever"
-    localver=$(docker-compose -v | cut -d " " -f4 | sed 's/,//g')
-    printf "Current local version is: %s \\n" "$localver"
-    if [ "$localver" != "$onlinever" ]; then
-        sudo curl -s https://api.github.com/repos/docker/compose/releases/latest | grep "browser_download_url" | grep -i -m1 "$(uname -s)"-"$(uname -m)" | cut -d '"' -f4 | xargs sudo curl -L -o /usr/local/bin/docker-compose
-        sudo chmod +x /usr/local/bin/docker-compose
-        printf "\\n\\n"
-    else
-        printf "No Docker-Compose Update needed.\\n\\n"
-    fi
     # Check for updates to the Mediabox repo
     printf "Updating your local copy of Mediabox.\\n\\n"
     printf "If this file 'mediabox.sh' is updated it will be re-run automatically.\\n\\n"
@@ -94,7 +87,7 @@ if [ -e 1.env ]; then
     mv 1.env .env
     # Stop the current Mediabox stack
     printf "\\n\\nStopping Current Mediabox containers.\\n\\n"
-    docker-compose stop
+    docker compose stop
     # Make a datestampted copy of the existing .env file
     mv .env "$(date +"%Y-%m-%d_%H:%M").env"
 fi
@@ -219,6 +212,7 @@ mkdir -p sonarr
 mkdir -p lazylibrarian
 mkdir -p speedtest
 mkdir -p tautulli
+mkdir -p kometa-quickstart
 #mkdir -p tdarr
 #mkdir -p tubesync
 
@@ -273,9 +267,9 @@ cat << EOF > .env
 ###  M E D I A B O X   C O N F I G   S E T T I N G S
 ###  ------------------------------------------------
 ###  The values configured here are applied during
-###  $ docker-compose up
+###  $ docker compose up
 ###  -----------------------------------------------
-###  DOCKER-COMPOSE ENVIRONMENT VARIABLES BEGIN HERE
+###  DOCKER COMPOSE ENVIRONMENT VARIABLES BEGIN HERE
 ###  -----------------------------------------------
 ###
 EOF
@@ -320,7 +314,7 @@ echo "The containers will now be pulled and launched"
 echo "This may take a while depending on your download speed"
 read -r -p "Press any key to continue... " -n1 -s
 printf "\\n\\n"
-docker-compose up -d --remove-orphans
+docker compose up -d --remove-orphans
 printf "\\n\\n"
 
 # Configure the access to the Deluge Daemon
