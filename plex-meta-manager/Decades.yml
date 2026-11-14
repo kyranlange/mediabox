@@ -18,8 +18,7 @@ collections:
     sync_mode: sync
 
   Best of 1980s:
-    trakt_list:
-     - https://trakt.tv/users/hdlists/lists/rottentomatoes-com-s-best-of-the-80s
+    mdblist_list: https://mdblist.com/lists/hdlists/rottentomatoes-com-s-best-of-the-80s
     sort_title: +20_11980
     collection_mode: hide
     sync_mode: sync
@@ -29,7 +28,7 @@ collections:
     url_background: https://i.imgur.com/ITnaga1.jpg
 
   Best of 1990s:
-    trakt_list: https://trakt.tv/users/hdlists/lists/rottentomatoes-com-s-best-of-the-90s
+    mdblist_list: https://mdblist.com/lists/hdlists/rottentomatoes-com-s-best-of-the-90s
     sync_mode: sync
     smart_label: critic_rating.desc
     summary: The Best Movies From The 90s

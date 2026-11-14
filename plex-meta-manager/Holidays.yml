@@ -43,18 +43,20 @@ collections:
       start_date: 10/01
       end_date: 10/31
     imdb_list:
+      - https://www.imdb.com/list/ls546214737/
       - https://www.imdb.com/list/ls023118929/
       - https://www.imdb.com/list/ls000099714/
-    trakt_list:
-      - https://trakt.tv/users/kairbear08/lists/halloween
-      - https://trakt.tv/users/mybicycle/lists/halloween
-      - https://trakt.tv/users/jayinftl/lists/halloween
-      - https://trakt.tv/users/roswellgeek/lists/halloween
     tmdb_collection:
       - 91361    # Halloween Collection
       - 8581     # A Nightmare on Elm Street Collection
       - 1733     # The Mummy Collection
       - 8091     # Alien Collection
+      - 185103    # Hotel Transylvania
+      - 11716     # Addams Family
+      - 750822    # Addams Family Animated
+      - 313086    # Conjuring
+      - 2980      # Ghostbusters
+      - 751156    # Hocus Pocus
     tmdb_movie:
       - 23437    # A Nightmare on Elm Street (2010)
     url_poster: https://i.imgur.com/nyxHv2x.png
@@ -63,11 +65,8 @@ collections:
       name: Holiday
       start_date: 11/07
       end_date: 12/31
-    trakt_list:
-      - https://trakt.tv/users/movistapp/lists/christmas-movies
-      - https://trakt.tv/users/2borno2b/lists/christmas-movies-extravanganza
-      - https://trakt.tv/users/pualani78/lists/christmas-2020
-      - https://trakt.tv/users/veninjak/lists/complete-christmas-2021-copy
+    mdblist_list:
+      - https://mdblist.com/lists/k0meta/christmas-extravaganza
     imdb_list:
       - https://www.imdb.com/list/ls025976544/
       - https://www.imdb.com/list/ls003863000/

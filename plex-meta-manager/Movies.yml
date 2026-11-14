@@ -8,16 +8,21 @@ templates:
     sync_mode: sync
     smart_label: random
   Best of:
-    trakt_list: https://trakt.tv/users/lish408/lists/rotten-tomatoes-best-of-<<year>>
+    imdb_search:
+      release.after: <<year>>-01-01
+      release.before: <<year>>-12-31
+      type: movie
+      votes.gte: 1000
+      sort_by: rating.desc
+      limit: 250
     sort_title: +2_Best of <<year>>
     sync_mode: sync
-    summary: Rotten Tomatoes Best Movies of <<year>>
+    summary: Highest rated IMDb movies released in <<year>>
     smart_label: audience_rating.desc
 
 collections:
   Trending:
     template: { name: Chart, num: 1 }
-    trakt_trending: 20
     tmdb_trending_daily: 20
     tmdb_trending_weekly: 20
     summary: Movies Trending across the internet
@@ -41,7 +46,7 @@ collections:
 
   Top Ten Pirated Weekly:
     template: { name: Chart, num: 3 }
-    trakt_list: https://trakt.tv/users/hdlists/lists/top-ten-pirated-movies-of-the-week-torrent-freak-com
+    mdblist_list: https://mdblist.com/lists/hdlists/top-ten-pirated-movies-of-the-week-torrent-freak-com
     summary: Most Pirated Movies of The Week
     radarr_add: true
     radarr_search: true
@@ -68,17 +73,17 @@ collections:
     summary: Oscar Winning Movies
 
   Car Racing Movies:
-    trakt_list:
-     - https://trakt.tv/users/idelo/lists/hot-wheels
+    mdblist_list:
+      - https://mdblist.com/lists/rogerveijk/de-allerbeste-race-films
+      - https://mdblist.com/lists/parsec82-7b0gx8/motorsport-racing
     imdb_list: https://www.imdb.com/list/ls021407125/
     smart_label: critic_rating.desc
     sync_mode: sync
     sort_title: +_Car Racing
+    summary: Racing, motorsport, fast-car, and car-chase movies.
   
   Mindfuck Movies:
-    trakt_list:
-     - https://trakt.tv/users/hdlists/lists/mindfuck-movies
-     - https://trakt.tv/users/benfranklin/lists/best-mindfucks
+    mdblist_list: https://mdblist.com/lists/hdlists/mindfuck-movies
     smart_label: critic_rating.desc
     sync_mode: sync
     sort_title: +_Mindfuck Movies
@@ -87,7 +92,7 @@ collections:
     url_background: https://i.imgur.com/DM1Im1X.jpeg
 
   Nostalgia Collection (Classics From The 80s & 90s):
-    trakt_list: https://trakt.tv/users/hdlists/lists/nostalgiac-movies-from-the-80s-90s
+    mdblist_list: https://mdblist.com/lists/hdlists/nostalgiac-movies-from-the-80s-90s
     sync_mode: sync
     smart_label: critic_rating.desc
     sort_title: +_Nostalgia Collection
@@ -96,7 +101,7 @@ collections:
     url_background: https://i.imgur.com/frz0kly.jpg
     
   Outer Space Movie Collection:
-    trakt_list: https://trakt.tv/users/hdlists/lists/outer-space-space-exploration-movies
+    mdblist_list: https://mdblist.com/lists/hdlists/outer-space-space-exploration-movies
     sync_mode: sync
     smart_label: critic_rating.desc
     sort_title: +_Outer Space Movie Collection
@@ -105,7 +110,7 @@ collections:
     url_background: https://i.imgur.com/CUIrEWQ.jpg
     
   Parody Movie Collection:
-    trakt_list: https://trakt.tv/users/hdlists/lists/top-50-parody-movies-of-all-time
+    mdblist_list: https://mdblist.com/lists/hdlists/top-50-parody-movies-of-all-time
     sync_mode: sync
     smart_label: critic_rating.desc
     sort_title: +_Parody Movie Collection
@@ -114,7 +119,7 @@ collections:
     url_background: https://i.imgur.com/eELv4eB.jpg
 
   Best Superhero Movies:
-    trakt_list: https://trakt.tv/users/hdlists/lists/best-superhero-movies
+    mdblist_list: https://mdblist.com/lists/hdlists/best-superhero-movies
     sort_title: +_Superhero Movies
     sync_mode: sync
     smart_label: critic_rating.desc
@@ -122,17 +127,21 @@ collections:
     url_poster: https://i.imgur.com/lqXRQdd.png
 
   Best of 2012:
-    trakt_list: https://trakt.tv/users/sp1ti/lists/a-v-club-s-best-films-of-2012
+    mdblist_list:
+      url: https://mdblist.com/lists/beegeeonta/best-movies-2012
+      sort_by: rtomatoes.desc
+    collection_order: custom
     sort_title: +2_Best of 2012
     sync_mode: sync
-    summary: A.V. Club's Best films of 2012
-    smart_label: audience_rating.desc
+    summary: Best movies of 2012 by Rotten Tomatoes score
   Best of 2013:
-    trakt_list: https://trakt.tv/users/iandick/lists/rotten-tomatoes-best-of-2013
+    mdblist_list:
+      url: https://mdblist.com/lists/beegeeonta/best-movies-2013
+      sort_by: rtomatoes.desc
+    collection_order: custom
     sort_title: +2_Best of 2013
     sync_mode: sync
-    summary: Rotten Tomatoes Best Movies of 2013
-    smart_label: audience_rating.desc
+    summary: Best movies of 2013 by Rotten Tomatoes score
   Best of 2014:
     template: { name: Best of, year: 2014 }
   Best of 2015:
@@ -150,17 +159,45 @@ collections:
   Best of 2021:
     template: { name: Best of, year: 2021 }
   Best of 2022:
-    template: { name: Best of, year: 2022 }
+    mdblist_list:
+      url: https://mdblist.com/lists/arrikhan-axjd49/best-of-2022-tomato
+      sort_by: rtomatoes.desc
+    collection_order: custom
+    sort_title: +2_Best of 2022
+    sync_mode: sync
+    summary: Best of 2022, sorted by Rotten Tomatoes score
   Best of 2023:
-    template: { name: Best of, year: 2023 }
+    mdblist_list:
+      url: https://mdblist.com/lists/siskourso/rotten-tomatoes-best-of-2023
+      sort_by: rtomatoes.desc
+    collection_order: custom
+    sort_title: +2_Best of 2023
+    sync_mode: sync
+    summary: Rotten Tomatoes Best of 2023, sorted by Tomatometer
   Best of 2024:
-    template: { name: Best of, year: 2024 }
+    mdblist_list:
+      url: https://mdblist.com/lists/siskourso/rotten-tomatoes-best-of-2024-ed84tni24k
+      sort_by: rtomatoes.desc
+    collection_order: custom
+    sort_title: +2_Best of 2024
+    sync_mode: sync
+    summary: Rotten Tomatoes Best of 2024, sorted by Tomatometer
+  Best of 2025:
+    mdblist_list:
+      url: https://mdblist.com/lists/siskourso/rotten-tomatoes-best-of-2025
+      sort_by: rtomatoes.desc
+    collection_order: custom
+    sort_title: +2_Best of 2025
+    sync_mode: sync
+    summary: Rotten Tomatoes Best of 2025, sorted by Tomatometer
+  Best of 2026:
+    template: { name: Best of, year: 2026 }
 
   Kids Movies:
-    trakt_list:
-     - https://trakt.tv/users/jarvis-8840774/lists/g-rated-animations-65
-     - https://trakt.tv/users/jtludwig/lists/kids-movies
-     - https://trakt.tv/users/giladg/lists/rotten-tomatoes-top-100-kids-family-movies
+    mdblist_list:
+     - https://mdblist.com/lists/quickflix/all-animated-kids-movies
+     - https://mdblist.com/lists/mulanzo3/kids-movies
+     - https://mdblist.com/lists/hdlists/latest-hd-family-movies-top-rated-from-1980-to-today
     smart_label: critic_rating.desc
     sync_mode: sync
     sort_title: +_Kids Movies
